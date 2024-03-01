@@ -1,0 +1,34 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Fornecedores</h1>
+
+<div class="container-fluid">
+<div id="fornecedors">
+  <table class="table table-striped table-bordered table-responsive-lg table-hover">
+    <thead>
+    <tr>
+      <th>Nome</th>
+      <th>CNPJ</th>
+      <th>Endereço</th>
+      <th>Tel</th>
+      <th>Obs</th>
+      <th></th>
+    </tr>
+    </thead>
+  <tbody>
+  <tr>
+  <% @fornecedors.each do |fornecedor| %>
+    <%= render fornecedor %>
+    <td>
+      <%= button_to "Mostrar", fornecedor, class: 'btn btn-outline-info', method: :get%>
+    </td>
+      </tr>
+      </tbody>
+  <% end %>
+  </table>
+</div>
+
+<br>
+
+<%= button_to "Novo fornecedor", new_fornecedor_path, class: 'btn btn-outline-success', method: :get %>
+</div>

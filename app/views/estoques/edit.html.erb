@@ -1,0 +1,12 @@
+<h1>Editar estoque</h1>
+
+<div class="container-fluid">
+<%= render "formedit", estoque: @estoque %>
+
+<br>
+
+<div>
+  <%= button_to "Mostrar", @estoque, class: 'btn btn-outline-info', method: :get %> |
+  <%= button_to "Voltar", estoques_path, class: 'btn btn-outline-dark', method: :get %>
+</div>
+</div>

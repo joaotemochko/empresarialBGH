@@ -1,0 +1,4 @@
+'pt-BR':
+  valores:
+    peso: '%{value}kg'
+    moeda: 'R$%{value}'

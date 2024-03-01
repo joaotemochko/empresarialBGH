@@ -1,0 +1,22 @@
+<div id="<%= dom_id produto %>">
+
+  <td id="nome">
+    <%= produto.nome %>
+  </td>
+
+  <% if current_user.admin %>
+    <td id="desc">
+      <%= produto.desc %>
+    </td>
+  <% end %>
+  <td id="entrada">
+    <% quantidade_total = @estoque.where(:produto_id => produto.id) %>
+    <% @@sum = t('valores.peso', value: '%0.3f' %quantidade_total.sum(:quantidade)) %>
+    <%= @@sum %>
+  </td>
+  <td id="quantidade">
+    <% quantidade = t('valores.peso', value: '%0.3f' %produto.quantidade) %>
+    <%= quantidade %>
+  </td>
+
+</div>

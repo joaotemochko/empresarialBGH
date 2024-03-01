@@ -1,0 +1,58 @@
+<div class="container-fluid">
+<% if current_user.admin %>
+  <h1>Usuários</h1>
+  <table class="text-center table table-striped table-bordered table-responsive-lg table-hover">
+    <tr>
+      <th>ID</th>
+      <th>E-mail</th>
+      <th>Permissões</th>
+      <th></th>
+      <th></th>
+    </tr>
+      <% @user.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.email %></td>
+          <td><%= user.admin %></td>
+          <td><%= button_to 'Editar', edit_user_registration_path, class: 'btn btn-outline-info', method: :get %></td>
+        </tr>
+      <% end %>
+  </table>
+  <%= button_to 'Novo', welcome_new_path, class: 'btn btn-outline-success', method: :get %>
+  <br>
+  <br>
+<% end %>
+
+<h1>Produtos</h1>
+
+<table class="text-center table table-striped table-bordered table-responsive-lg table-hover">
+  <thead>
+  <tr>
+    <th>Produto</th>
+    <th>Entrada</th>
+    <th>Quantidade Disponível</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <div id="produtos">
+    <tbody>
+      <tr>
+        <% @produtos.each do |showestoque| %>
+          <td><%= showestoque.nome %></td>
+          <td>
+            <% quantidade_total = @estoque.where(:produto_id => showestoque.id).where('status != ? and status != ?', 'Cancelado', 'Descartado') %>
+            <%= t('valores.peso', value: '%0.3f' %quantidade_total.sum(:quantidade)) %>
+          </td>
+          <td><%= t('valores.peso', value: '%0.3f' %showestoque.quantidade) %></td>
+          <td><%= button_to "Editar", edit_produto_path(showestoque), class: 'btn btn-outline-info', method: :get %></td>
+          <td><%= button_to 'Retirar', subtrai_path(showestoque), class: 'btn btn-outline-danger', method: :get %></td>
+      </tr>
+    </tbody>
+  </div>
+        <% end %>
+</table>
+
+<%= button_to 'Sair', destroy_user_session_path, class: 'btn btn-outline-danger', method: :delete %>
+</div>

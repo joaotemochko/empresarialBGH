@@ -1,0 +1,32 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Produtos</h1>
+
+<div class="card-body">
+<div class="table-responsive-lg">
+<table class="text-center table table-striped table-bordered table-hover">
+  <thead>
+  <tr>
+    <th>Produto</th>
+    <th>Descrição</th>
+    <th>Entrada</th>
+    <th>Quantidade Disponível</th>
+    <th></th>
+  </tr>
+  </thead>
+
+      <tbody>
+      <tr>
+      <% @produtos.each do |produto| %>
+          <%= render produto %>
+        <td id="mostrar">
+          <%= button_to "Mostrar", produto, class: 'btn btn-outline-info', method: :get %>
+        </td>
+          </tr>
+        </tbody>
+      <% end %>
+</table>
+
+<%= button_to "Novo produto", new_produto_path, class: 'btn btn-outline-success', method: :get %>
+</div>
+</div>

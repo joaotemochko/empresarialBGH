@@ -1,0 +1,14 @@
+{
+  "name": "empresarialBGH",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "João Temochko <43001869+joaotemochko@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "4.6.0",
+    "datatables.net-bs4": "^2.0.1",
+    "jquery": "^3.7.1",
+    "jquery-ujs": "^1.2.3",
+    "jquery.easing": "^1.4.1"
+  }
+}

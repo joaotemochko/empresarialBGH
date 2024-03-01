@@ -1,0 +1,14 @@
+/*
+*= require bootstrap/dist/css/bootstrap
+*= require datatables.net-bs4/css/dataTables.bootstrap4
+*= require fontawesome-free/css/all
+*= require sb-admin-2
+*/
+
+
+.button_to {
+    display: inline;
+}
+.button_to div{
+    display: inline;
+}

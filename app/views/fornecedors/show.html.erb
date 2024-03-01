@@ -1,0 +1,33 @@
+<p style="color: green"><%= notice %></p>
+<div class="container-fluid">
+<table class="table table-striped table-bordered table-responsive-lg table-hover">
+  <thead>
+  <tr>
+    <th>Nome</th>
+    <th>CNPJ</th>
+    <th>Endereço</th>
+    <th>Tel</th>
+    <th>Obs</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr>
+    <%= render @fornecedor %>
+  </tr>
+  </tbody>
+</table>
+
+<div>
+  <%= button_to 'Novo fornecedor', new_fornecedor_path, class: 'btn btn-outline-success', method: :get %> |
+  <%= button_to "Editar", edit_fornecedor_path(@fornecedor), class: 'btn btn-outline-info', method: :get %> |
+  <%= button_to "Voltar", fornecedors_path, class: 'btn btn-outline-dark', method: :get %>
+
+</div>
+
+<br>
+
+<div class="d-flex flex-row justify-content-end mt-auto">
+  <%= button_to "Excluir fornecedor (não recomendado)", @fornecedor, class: 'btn btn-danger', method: :delete %>
+</div>
+</div>

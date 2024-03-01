@@ -1,0 +1,18 @@
+<h1>Editar Produto</h1>
+
+<div class="container-fluid">
+<%= render "form", produto: @produto %>
+
+<br>
+
+<div>
+  <% if current_user.admin %>
+  <%= button_to "Mostrar", @produto, class: 'btn btn-outline-info', method: get %> |
+  <%= button_to "Voltar", produtos_path, class: 'btn btn-outline-dark', method: :get %>
+
+
+  <% else %>
+    <%= button_to "Voltar", welcome_index_path, class: 'btn btn-outline-dark', method: :get %>
+  <% end %>
+</div>
+</div>

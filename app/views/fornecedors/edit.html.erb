@@ -1,0 +1,12 @@
+<h1>Editing fornecedor</h1>
+
+<div class="container-fluid">
+<%= render "form", fornecedor: @fornecedor %>
+
+<br>
+
+<div>
+  <%= button_to "Mostrar", @fornecedor, class: 'btn btn-outline-info', method: :get %> |
+  <%= button_to "Voltar", fornecedors_path, class: 'btn btn-outline-dark', method: :get %>
+</div>
+</div>

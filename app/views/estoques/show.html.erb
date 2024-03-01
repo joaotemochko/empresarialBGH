@@ -1,0 +1,35 @@
+<p style="color: green"><%= notice %></p>
+
+<table class="table table-striped table-bordered table-responsive-lg table-hover">
+  <thead>
+  <tr>
+    <th>Produto</th>
+    <th>Fornecedor</th>
+    <th>Descrição</th>
+    <th>Lote</th>
+    <th>Comprado em</th>
+    <th>Validade</th>
+    <th>Quantidade</th>
+    <th>Valor</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <%= render @estoque %>
+    </tr>
+  </tbody>
+</table>
+
+
+<div>
+  <%= button_to "Novo estoque", new_estoque_path, class: 'btn btn-outline-success' %> |
+  <%= button_to "Editar", edit_estoque_path(@estoque), class: 'btn btn-outline-info', method: :get %> |
+  <%= button_to "Voltar", estoques_path, class: 'btn btn-outline-dark', method: :get %>
+</div>
+
+<br>
+
+<div class="d-flex flex-row justify-content-end mt-auto">
+  <%= button_to "Deletar este estoque (não recomendado)", @estoque, class: 'btn btn-danger', method: :delete %>
+</div>

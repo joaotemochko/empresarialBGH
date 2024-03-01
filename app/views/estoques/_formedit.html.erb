@@ -1,0 +1,62 @@
+<%= form_with(model: estoque) do |form| %>
+  <% if estoque.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(estoque.errors.count, "error") %> prohibited this estoque from being saved:</h2>
+
+      <ul>
+        <% estoque.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :produto, style: "display: block" %>
+    <%= form.label estoque.produto.nome %>
+  </div>
+
+  <div>
+    <%= form.label :fornecedor, style: "display: block" %>
+    <%= form.label estoque.fornecedor.nome %>
+  </div>
+
+  <div>
+    <%= form.label :desc, style: "display: block" %>
+    <%= form.text_field :desc %>
+  </div>
+
+  <div>
+    <%= form.label :lote, style: "display: block" %>
+    <%= form.label estoque.lote %>
+  </div>
+
+  <div>
+    <%= form.label :data_compra, style: "display: block" %>
+    <%= form.label l(estoque.data_compra.to_date, format: :default) %>
+  </div>
+
+  <div>
+    <%= form.label :validade, style: "display: block" %>
+    <%= form.label l(estoque.validade.to_date, format: :default) %>
+  </div>
+
+  <div>
+    <%= form.label :quantidade, style: "display: block" %>
+    <%= form.text_field :quantidade %>
+  </div>
+
+  <div>
+    <%= form.label :valor, style: "display: block" %>
+    <%= form.label :valor, t('valores.moeda', value: '%0.2f' %@estoque.valor) %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.select("status", [['Cancelado', 'Cancelado'], ['Em uso', 'Em uso'], ['Ativo', 'Ativo'], ['Descartado', 'Descartado']], {include_blank: 'Selecione o status...'}) %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

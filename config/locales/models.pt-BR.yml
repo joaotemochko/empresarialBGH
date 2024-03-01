@@ -1,0 +1,29 @@
+'pt-BR':
+  date:
+    formats:
+      default: "%d/%m/%Y"
+  activerecord:
+    models:
+      estoque:
+        one: Estoque
+        other: Estoques
+      fornecedor:
+        one: Fornecedor
+        other: Fornecedores
+      user:
+        one: Usuário
+        other: Usuários
+    attributes:
+      estoque:
+        id: Código
+        created_at: Criado em
+        updated_at: Atualizado em
+      fornecedor:
+        id: Código
+        created_at: Criado em
+        updated_at: Atualizado em
+      user:
+        id: Código
+        email: Email
+        created_at: Criado em
+        updated_at: Atualizado em

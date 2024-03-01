@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  produto: MyString
+  fornecedor: MyString
+  desc: MyString
+  lote: 1
+  data_compra: 2024-02-25
+  validade: 2024-02-25
+  quantidade: 1.5
+  valor: 1.5
+
+two:
+  produto: MyString
+  fornecedor: MyString
+  desc: MyString
+  lote: 1
+  data_compra: 2024-02-25
+  validade: 2024-02-25
+  quantidade: 1.5
+  valor: 1.5

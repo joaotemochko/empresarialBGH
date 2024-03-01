@@ -1,0 +1,37 @@
+<p style="color: green"><%= notice %></p>
+<table class="text-center table table-striped table-bordered table-responsive-lg table-hover">
+  <thead>
+  <% if current_user.admin %>
+  <th>Produto</th>
+    <th>Descrição</th>
+    <th>Entrada</th>
+    <th>Quantidade Disponível</th>
+  <% else %>
+  <th>Produto</th>
+  <th>Quantidade</th>
+  <% end %>
+  </thead>
+  <tbody>
+    <%= render @produto %>
+  </tbody>
+</table>
+<br>
+
+<div class="container-fluid">
+  <% if current_user.admin %>
+    <%= button_to "Novo produto", new_produto_path, class: 'btn btn-outline-success', method: :get %> |
+    <%= button_to "Editar", edit_produto_path(@produto), class: 'btn btn-outline-info', method: :get %> |
+    <%= button_to "Retirar", subtrai_path(@produto), class: 'btn btn-outline-danger' %>
+
+
+  <% else %>
+    <%= button_to "Voltar", welcome_index_path, class: 'btn btn-outline-info', method: :get %>
+  <% end %>
+</div>
+
+<br>
+<br>
+
+<div class="d-flex flex-row justify-content-end mt-auto">
+  <%= button_to "Excluir produto (casos graves)", @produto, class: 'btn btn-danger', method: :delete %>
+</div>
