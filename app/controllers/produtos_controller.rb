@@ -8,6 +8,16 @@ class ProdutosController < DefaultController
     render json: {data: @produto}
   end
 
+  def search_produto
+    if params[:search].blank?
+      redirect_to estoques_path and return
+    else
+      @parameter = params[:search].downcase
+      @produto = Produto.all
+      @results = @produto.where("lower(nome) LIKE :search", search: "%#@parameter%")
+    end
+  end
+
   # GET /produtos or /produtos.json
   def index
     @produtos = Produto.all

@@ -3,5 +3,5 @@ class Estoque < ApplicationRecord
   belongs_to :fornecedor
   belongs_to :produto
 
-  pg_search_scope :search_validade, against: :id
+  pg_search_scope :search_estoque, against: [:nome], using:[:trigram]
 end

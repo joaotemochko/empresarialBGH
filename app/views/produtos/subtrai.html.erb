@@ -6,7 +6,13 @@
 <br>
 
 <div>
-  <%= link_to "Show this estoque", @produto %> |
-  <%= link_to "Back to estoques", produto_path %>
+  <% if current_user.admin %>
+    <%= button_to "Mostrar", @produto, class: 'btn btn-outline-info', method: :get %> |
+    <%= button_to "Voltar", produtos_path, class: 'btn btn-outline-dark', method: :get %>
+
+
+  <% else %>
+    <%= button_to "Voltar", welcome_index_path, class: 'btn btn-outline-dark', method: :get %>
+  <% end %>
 </div>
 </div>

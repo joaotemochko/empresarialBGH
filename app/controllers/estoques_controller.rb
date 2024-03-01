@@ -12,6 +12,16 @@ class EstoquesController < DefaultController
   def show
   end
 
+  def search_estoque
+    if params[:search].blank?
+      redirect_to estoques_path and return
+    else
+      @parameter = params[:search].downcase
+      @produto = Produto.all
+      @results = @produto.where("lower(nome) LIKE :search", search: "%#@parameter%")
+    end
+  end
+
   # GET /estoques/new
   def new
     @estoque = Estoque.new

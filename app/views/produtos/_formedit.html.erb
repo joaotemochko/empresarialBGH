@@ -1,0 +1,36 @@
+<%= form_with(model: produto) do |form| %>
+  <% if produto.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(produto.errors.count, "error") %> prohibited this produto from being saved:</h2>
+
+      <ul>
+        <% produto.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if current_user.admin %>
+    <div class="col-md-4">
+      <%= form.label :nome, style: "display: block" %>
+      <%= form.text_field :nome, class: 'form-control' %>
+    </div>
+
+    <div class="col-md-4">
+      <%= form.label 'Descrição', style: "display: block" %>
+      <%= form.text_field :desc, class: 'form-control' %>
+    </div>
+  <% end %>
+
+  <div class="col-md-4">
+    <%= form.label :quantidade, style: "display: block" %>
+    <%= form.text_field :quantidade, class: 'form-control', value: '%0.3f' % produto.quantidade %>
+  </div>
+
+  <br>
+
+  <div>
+    <%= form.submit class: 'btn btn-outline-success' %>
+  </div>
+<% end %>

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :estoques
 
   get 'get_dataProduto', to: 'produtos#get_dataProduto'
+  get '/search_estoque', to: 'estoques#search_estoque'
+  get '/search_produto', to: 'produtos#search_produto'
   get 'produtos/:id/subtrai', to: 'produtos#subtrai', as: 'subtrai'
   get 'welcome/index'
   get 'welcome/edit'

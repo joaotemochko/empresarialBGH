@@ -1,4 +1,6 @@
 <p style="color: green"><%= notice %></p>
+
+<div class="container-fluid">
 <table class="text-center table table-striped table-bordered table-responsive-lg table-hover">
   <thead>
   <% if current_user.admin %>
@@ -15,13 +17,14 @@
     <%= render @produto %>
   </tbody>
 </table>
+</div>
 <br>
 
 <div class="container-fluid">
   <% if current_user.admin %>
     <%= button_to "Novo produto", new_produto_path, class: 'btn btn-outline-success', method: :get %> |
     <%= button_to "Editar", edit_produto_path(@produto), class: 'btn btn-outline-info', method: :get %> |
-    <%= button_to "Retirar", subtrai_path(@produto), class: 'btn btn-outline-danger' %>
+    <%= button_to "Retirar", subtrai_path(@produto), class: 'btn btn-outline-danger', method: :get %>
 
 
   <% else %>

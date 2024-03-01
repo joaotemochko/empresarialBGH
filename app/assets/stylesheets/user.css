@@ -6,9 +6,16 @@
 */
 
 
+.img-letreiro{
+    margin-top: 20%;
+}
 .button_to {
     display: inline;
 }
 .button_to div{
     display: inline;
+}
+.letreiro{
+    margin-top: auto;
+    font-size: x-small;
 }

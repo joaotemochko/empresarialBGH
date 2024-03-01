@@ -8,6 +8,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
+  <%= favicon_link_tag 'oceanfish_ico.jpg' %>
+
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
@@ -18,24 +20,24 @@
 </head>
 
 <body id="page-top">
-
 <!-- Page Wrapper -->
 <div id="wrapper">
 
   <!-- Sidebar -->
   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
     <!-- Sidebar - Brand -->
     <%= link_to welcome_index_path, class: "sidebar-brand d-flex align-items-center justify-content-center" do %>
-      <div class="sidebar-brand-icon rotate-n-15">
-        <i class="fas fa-laugh-wink"></i>
+      <div class="sidebar-brand-icon">
+        <%= image_tag 'oceanfish_ico-2-3.jpeg', class: 'img-letreiro rounded-circle' %>
+
       </div>
-      <div class="sidebar-brand-text mx-3">Ocean Fish
+      <div class="letreiro sidebar-brand-text mx-sm-3">Ocean Fish
         <br>
-        <sup>Estoque</sup>
+        <p>Sistema <sup>Empresarial</sup></p>
       </div>
     <% end %>
 
+    <br>
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
