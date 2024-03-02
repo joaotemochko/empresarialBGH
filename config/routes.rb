@@ -2,11 +2,18 @@ Rails.application.routes.draw do
   resources :produtos
   resources :fornecedors
   resources :estoques
+  resources :welcome
 
+  resources :users, only: [:new, :edit, :update, :create]
+
+  get '/users/new', to: 'users#new'
   get 'get_dataProduto', to: 'produtos#get_dataProduto'
   get '/search_estoque', to: 'estoques#search_estoque'
   get '/search_produto', to: 'produtos#search_produto'
+  get '/search_fornecedor', to: 'fornecedors#search_fornecedor'
   get 'produtos/:id/subtrai', to: 'produtos#subtrai', as: 'subtrai'
+
+
   get 'welcome/index'
   get 'welcome/edit'
   get 'welcome/new'

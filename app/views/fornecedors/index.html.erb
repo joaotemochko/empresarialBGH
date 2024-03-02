@@ -4,13 +4,13 @@
 
 <div class="container-fluid">
   <div class="table-responsive">
-  <table class="table table-striped table-bordered table-hover">
+  <table class="table table-striped table-bordered table-hover" id="tabelaFornecedor">
     <thead>
     <tr>
       <th>Nome</th>
       <th>CNPJ</th>
       <th>Endereço</th>
-      <th>Tel</th>
+      <th>Telefone</th>
       <th>Obs</th>
       <th></th>
       <th></th>
@@ -21,15 +21,16 @@
   <% @fornecedors.each do |fornecedor| %>
     <%= render fornecedor %>
 
-      <td>
+      <td id="botao_editar">
         <%= button_to "Editar", edit_produto_path(fornecedor), class: 'btn btn-outline-info', method: :get%>
       </td>
-    <td>
+    <td id=botao_mostrar>
       <%= button_to "Mostrar", fornecedor, class: 'btn btn-outline-dark', method: :get%>
     </td>
       </tr>
-      </tbody>
+
   <% end %>
+    </tbody>
   </table>
 </div>
 

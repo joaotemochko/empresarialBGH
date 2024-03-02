@@ -3,15 +3,7 @@
 <h1>Estoques</h1>
 
 <div class="table-responsive">
-  <%= form_tag search_estoque_path, method: :get do %>
-  <div class="input-group">
-    <%= search_field_tag :search, params[:search], placeholder: "Nome", class: 'form-control' %>
-    <div class="input-group-btn">
-      <%= button_tag 'Pesquisar', class: 'btn btn-primary', :nome => nil %>
-    </div>
-  </div>
-  <% end %>
-  <table class="text-center table table-striped table-bordered table-hover">
+  <table class="text-center table table-striped table-bordered table-hover" id="tabelaEstoque">
     <thead>
     <tr>
       <th>Produto</th>
@@ -27,18 +19,20 @@
       <th></th>
     </tr>
     </thead>
+    <tbody>
   <% @estoques.each do |estoque| %>
-      <tbody>
+
       <tr>
         <%= render estoque %>
 
-        <td>
+        <td id="botao_editar">
           <%= button_to "Editar", edit_produto_path(estoque), class: 'btn btn-outline-info', method: :get%>
         </td>
-        <td><%= button_to "Mostrar", estoque, class: 'btn btn-outline-info', method: :get %></td>
+        <td id="botao_mostrar"><%= button_to "Mostrar", estoque, class: 'btn btn-outline-info', method: :get %></td>
       </tr>
-      </tbody>
+
   <% end %>
+    </tbody>
   </table>
 </div>
 

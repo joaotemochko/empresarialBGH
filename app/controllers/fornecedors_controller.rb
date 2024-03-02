@@ -1,6 +1,16 @@
 class FornecedorsController < DefaultController
   before_action :set_fornecedor, only: %i[ show edit update destroy ]
 
+  def search_fornecedor
+    if params[:search].blank?
+      redirect_to estoques_path and return
+    else
+      @parameter = params[:search].downcase
+      @fornecedor = Fornecedor.all
+      @results = @fornecedor.search_fornecedor(@parameter)
+    end
+  end
+
   # GET /fornecedors or /fornecedors.json
   def index
     @fornecedors = Fornecedor.all

@@ -17,46 +17,51 @@
               <td><%= user.id %></td>
               <td><%= user.email %></td>
               <td><%= user.admin %></td>
-              <td><%= button_to 'Editar', edit_user_registration_path, class: 'btn btn-outline-info', method: :get %></td>
+              <td><%= button_to 'Editar', edit_user_path(user), class: 'btn btn-outline-info', method: :get %></td>
             </tr>
-          </tbody>
+
           <% end %>
+        </tbody>
       </table>
    </div>
-  <%= button_to 'Novo', welcome_new_path, class: 'btn btn-outline-success', method: :get %>
+  <%= button_to 'Novo', new_user_path, class: 'btn btn-outline-success', method: :get %>
   <br>
   <br>
 <% end %>
 
 <h1>Produtos</h1>
 
-<div class="table-responsive">
-<table class="text-center table table-striped table-bordered table-hover">
-  <thead>
-  <tr>
-    <th>Produto</th>
-    <th>Entrada</th>
-    <th>Quantidade Disponível</th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
+    <div class="table-responsive">
+      <table class="text-center table table-striped table-bordered table-hover" id="tabelaProduto">
+        <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Entrada</th>
+          <th>Quantidade Disponível</th>
+          <th></th>
+          <th></th>
+        </tr>
+        </thead>
 
-      <tbody>
+        <tbody>
         <tr>
           <% @produtos.each do |showestoque| %>
-            <td><%= showestoque.nome %></td>
-            <td>
+
+            <td id="produtos"><%= showestoque.nome %></td>
+            <td id="entrada">
               <% quantidade_total = @estoque.where(:produto_id => showestoque.id).where('status != ? and status != ?', 'Cancelado', 'Descartado') %>
               <%= t('valores.peso', value: '%0.3f' %quantidade_total.sum(:quantidade)) %>
             </td>
-            <td><%= t('valores.peso', value: '%0.3f' %showestoque.quantidade) %></td>
-            <td><%= button_to "Editar", edit_produto_path(showestoque), class: 'btn btn-outline-info', method: :get %></td>
-            <td><%= button_to 'Retirar', subtrai_path(showestoque), class: 'btn btn-outline-danger', method: :get %></td>
-          </tr>
-        </tbody>
-        <% end %>
-    </table>
-  </div>
+            <td id="quantidade"><%= t('valores.peso', value: '%0.3f' %showestoque.quantidade) %></td>
+            <td id="botao_mostrar"><%= button_to "Editar", edit_produto_path(showestoque), class: 'btn btn-outline-info', method: :get %></td>
+            <td id="botao_retirar"><%= button_to 'Retirar', subtrai_path(showestoque), class: 'btn btn-outline-danger', method: :get %></td>
+            </tr>
+
+          <% end %>
+          </tbody>
+
+
+          </table>
+    </div>
   <%= button_to 'Sair', destroy_user_session_path, class: 'btn btn-outline-danger', method: :delete %>
 </div>

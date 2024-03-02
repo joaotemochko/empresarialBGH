@@ -1,6 +1,50 @@
 <h3>Resultado</h3>
 
-<%= @results.inspect %>
-<% @results.each do |result| %>
-    <%= result.nome %><br>
+<div class="table-responsive">
+<%= form_tag search_estoque_path, method: :get do %>
+  <div class="input-group">
+    <%= search_field_tag :search, params[:search], placeholder: "Nome", class: 'form-control' %>
+    <div class="input-group-btn">
+      <%= button_tag 'Pesquisar', class: 'btn btn-primary', :nome => nil %>
+    </div>
+  </div>
 <% end %>
+<table class="text-center table table-striped table-bordered table-hover">
+  <thead>
+  <tr>
+    <th>Produto</th>
+    <th>Fornecedor</th>
+    <th>Descrição</th>
+    <th>Lote</th>
+    <th>Comprado em</th>
+    <th>Validade</th>
+    <th>Quantidade</th>
+    <th>Valor</th>
+    <th>Status</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr>
+<% @estoque.each do |estoque| %>
+  <% @results.each do |result| %>
+        <td><%= result.nome %></td>
+  <% end %>
+    <td><%= estoque.fornecedor.nome %></td>
+    <td><%= estoque.desc %></td>
+      <td><%= estoque.lote %></td>
+      <td><%= l(estoque.data_compra.to_date, format: :default) %></td>
+      <td><%= l(estoque.validade.to_date, format: :default) %></td>
+    <td><%= t('valores.peso', value: '%0.3f' %estoque.quantidade) %></td>
+    <td><%= t('valores.moeda', value: '%0.2f' %estoque.valor) %></td>
+    <td><%= estoque.status %></td>
+      <td><%= button_to 'Mostrar', edit_estoque_path(estoque), class: 'btn btn-outline-info', method: :get %></td>
+    <td><%= button_to 'Mostrar', estoque, class: 'btn btn-outline-dark', method: :get %></td>
+
+
+<% end %>
+  </tr>
+    </tbody>
+</table>
+</div>

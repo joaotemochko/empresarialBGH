@@ -24,8 +24,8 @@
   <% if current_user.admin %>
     <%= button_to "Novo produto", new_produto_path, class: 'btn btn-outline-success', method: :get %> |
     <%= button_to "Editar", edit_produto_path(@produto), class: 'btn btn-outline-info', method: :get %> |
-    <%= button_to "Retirar", subtrai_path(@produto), class: 'btn btn-outline-danger', method: :get %>
-
+    <%= button_to "Retirar", subtrai_path(@produto), class: 'btn btn-outline-danger', method: :get %> |
+    <%= button_to "Voltar", produtos_path, class: 'btn btn-outline-dark', method: :get %>
 
   <% else %>
     <%= button_to "Voltar", welcome_index_path, class: 'btn btn-outline-info', method: :get %>

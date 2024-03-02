@@ -14,7 +14,7 @@ class ProdutosController < DefaultController
     else
       @parameter = params[:search].downcase
       @produto = Produto.all
-      @results = @produto.where("lower(nome) LIKE :search", search: "%#@parameter%")
+      @results = @produto.search_produto(@parameter)
     end
   end
 
