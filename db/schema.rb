@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_01_224348) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_02_210909) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -42,12 +42,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_224348) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "logs", force: :cascade do |t|
+    t.string "usuario"
+    t.float "retirada"
+    t.date "data_retirada"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "produto_id", null: false
+    t.index ["produto_id"], name: "index_logs_on_produto_id"
+  end
+
   create_table "produtos", force: :cascade do |t|
     t.string "nome", null: false
     t.string "desc"
     t.float "quantidade"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "retirada"
   end
 
   create_table "users", force: :cascade do |t|
@@ -65,4 +76,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_01_224348) do
 
   add_foreign_key "estoques", "fornecedors"
   add_foreign_key "estoques", "produtos"
+  add_foreign_key "logs", "produtos"
 end

@@ -4,6 +4,7 @@ class WelcomeController < DefaultController
     @user = User.all
     @produtos = Produto.all
     @estoque = Estoque.all
+    @logs = Log.all
   end
 
 end

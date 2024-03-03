@@ -50,6 +50,9 @@ class ProdutosController < DefaultController
     if @produto.quantidade == nil
       @produto.quantidade = 0
     end
+    if @produto.retirada == nil
+      @produto.retirada = 0
+    end
     respond_to do |format|
       if @produto.save
         format.html { redirect_to produto_url(@produto), notice: "Produto was successfully created." }
@@ -67,8 +70,12 @@ class ProdutosController < DefaultController
 
       if @produto.update(produto_params)
         if @@subtrai
+          @retirada = (@produto.quantidade + @produto.retirada)
           @subtracao = ( @produto_subtrai.quantidade - @produto.quantidade )
-          Produto.where(:id => @produto_subtrai).update!(:quantidade => @subtracao)
+          Produto.where(:id => @produto_subtrai).update!(:quantidade => @subtracao, :retirada => @retirada)
+          @usuario = current_user.email
+          @log = Log.create!(:usuario => @usuario, :retirada => @produto.quantidade, :data_retirada => Date.today, :produto_id => @produto.id)
+
           redirect_to welcome_index_path
         else
           redirect_to produto_path(@produto)

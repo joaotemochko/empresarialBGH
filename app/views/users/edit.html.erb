@@ -16,9 +16,10 @@
       <%= form.label 'Confirmar senha' %>
       <%= form.text_field :password_confirmation %>
     </div>
-      <%= form.label 'Usuário Administrador?' %>
-    <%= form.select("admin", [['Sim', true], ['Não', false]], {include_blank: 'Selecione...'}) %>
+
     <div>
+    <%= form.label 'Usuário Administrador?' %>
+    <%= form.select("admin", [['Sim', true], ['Não', false]], {include_blank: 'Selecione...'}) %>
 
     </div>
     <div>

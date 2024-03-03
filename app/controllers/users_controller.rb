@@ -1,6 +1,5 @@
 class UsersController < DefaultController
   before_action :set_user, only: [:edit, :update]
-  before_action :set_user
 
 
   def index
@@ -35,14 +34,10 @@ class UsersController < DefaultController
   private
 
   def params_user
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:email, :password, :password_confirmation, :admin)
   end
 
   def set_user
     @user = User.find(params[:id])
-  end
-
-  def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :admin)
   end
 end

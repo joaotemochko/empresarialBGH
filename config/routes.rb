@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   resources :fornecedors
   resources :estoques
   resources :welcome
-
   resources :users, only: [:new, :edit, :update, :create]
 
+  get '/logs/:produto_id/index', to: 'logs#index', as: 'logs'
   get '/users/new', to: 'users#new'
   get 'get_dataProduto', to: 'produtos#get_dataProduto'
   get '/search_estoque', to: 'estoques#search_estoque'
