@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+
+#code-scanner canvas.drawingBuffer, code-scanner video.drawingBuffer {
+    display: none;
+}
+
+#code-scanner canvas, #code-scanner video {
+    width: 100%;
+    height: auto;
+}

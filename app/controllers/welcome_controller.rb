@@ -5,6 +5,7 @@ class WelcomeController < DefaultController
     @produtos = Produto.all
     @estoque = Estoque.all
     @logs = Log.all
+    @vendas_produtos = VendaProduto.all
   end
 
 end

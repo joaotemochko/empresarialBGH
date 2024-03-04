@@ -9,6 +9,8 @@
     "datatables.net-bs4": "^2.0.1",
     "jquery": "^3.7.1",
     "jquery-ujs": "^1.2.3",
-    "jquery.easing": "^1.4.1"
+    "jquery.easing": "^1.4.1",
+    "quagga": "^0.12.1",
+    "yarn": "^1.22.21"
   }
 }

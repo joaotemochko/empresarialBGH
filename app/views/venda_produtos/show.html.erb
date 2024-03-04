@@ -1,0 +1,13 @@
+<h1>Venda produtos show</h1>
+<p style="color: green"><%= notice %></p>
+
+<div id="showproduto">
+<%= render @venda_produto %>
+
+<div>
+  <%= link_to "Edit this venda produto", edit_venda_produto_path(@venda_produto) %> |
+  <%= link_to "Back to venda produtos", venda_produtos_path %>
+
+  <%= button_to "Destroy this venda produto", @venda_produto, method: :delete %>
+</div>
+</div>
