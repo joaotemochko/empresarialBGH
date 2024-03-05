@@ -1,5 +1,6 @@
 class VendaProdutosController < DefaultController
   before_action :set_venda_produto, only: %i[ show edit update destroy ]
+  before_action :set_arrayproduto
 
   # GET /venda_produtos or /venda_produtos.json
   def index
@@ -37,7 +38,9 @@ class VendaProdutosController < DefaultController
 
   def get_barcode
     @venda_produto = VendaProduto.where(:codebar =>  params[:codebar])
-    render json: {data: @venda_produto}
+    @venda_produto_total << @venda_produto.inspect
+    puts @venda_produto_total
+    render json: {data: @venda_produto_total}
   end
 
   # PATCH/PUT /venda_produtos/1 or /venda_produtos/1.json
@@ -64,6 +67,10 @@ class VendaProdutosController < DefaultController
   end
 
   private
+
+    def set_arrayproduto
+      @venda_produto_total = []
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_venda_produto
       @venda_produto = VendaProduto.find(params[:id])

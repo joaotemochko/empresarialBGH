@@ -11,8 +11,6 @@
 //
 
 
-
-
 function order_by_occurrence(arr) {
     var counts = {};
     arr.forEach(function(value){
@@ -29,19 +27,28 @@ function order_by_occurrence(arr) {
 
 function scannerEnd() {
     Quagga.stop();
+    console.log(code);
+    codigo_produto = code;
+    codigo_produto_replaced = codigo_produto.replace(/(\d{3})(\d{2})(\d{8})/, '$2');
+    console.log(codigo_produto_replaced);
+    codigo_preco = codigo_produto.replace(/(\d{1})(\d{6})(\d{3})(\d{2})(\d{1})/, '$3,$4');
+    codigo_preco = 'R$' + codigo_preco.replace(/([0])/, '');
+    console.log(codigo_preco);
     $('#resultado').DataTable({
-        destroy: true,
-        ajax:
+
+        ajax:(
             {
                 type: "GET",
                 url: '/venda_produtos/get_barcode',
-                data: {codebar: code}
-            },
+                data: {codebar: codigo_produto_replaced}
+        }),
+        destroy: true,
         columns: [
             {data: 'codebar'},
             {data: 'nome'}
         ]
-    })
+    });
+
     $(document).on('turbo:load', load_quagga());
 
 }
@@ -70,7 +77,7 @@ function  load_quagga(){
                 target: document.querySelector('#barcode-scanner')
             },
             decoder: {
-                readers : ['ean_reader','ean_8_reader','code_39_reader','code_39_vin_reader','codabar_reader','upc_reader','upc_e_reader']
+                readers : ['ean_reader']
             }
         },function(err) {
             if (err) { console.log(err); return }
@@ -79,4 +86,4 @@ function  load_quagga(){
         });
     }
 }
-$(document).ready('turbo:load', load_quagga());
+$(document).on(load_quagga());

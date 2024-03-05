@@ -16,8 +16,8 @@ namespace :dev do
       show_spinner("Criando BD...") { %x(rails db:create) }
       show_spinner("Migrando BD...") { %x(rails db:migrate) }
       show_spinner("Adicionando o Admin padrão...") { %x(rails dev:add_default_admin) }
+    end
   end
-
   desc "Adiciona usuários padrão ao Admin"
   task add_default_admin: :environment do
     User.create!(
@@ -37,7 +37,6 @@ namespace :dev do
       password_confirmation: DEFAULT_PASSWORD
     )
   end
- end
 
   private
 

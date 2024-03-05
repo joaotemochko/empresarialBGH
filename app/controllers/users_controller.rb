@@ -24,7 +24,7 @@ class UsersController < DefaultController
   end
 
   def update
-    if @user.update(user_params)
+    if @user.update(params_user)
         redirect_to welcome_index_path
       else
         render :edit
