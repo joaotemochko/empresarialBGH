@@ -10,8 +10,8 @@
 //= require tables
 //
 
-const totalVenda = []
-
+const totalVenda = [];
+const botao_deletar = '<button class="btn btn-danger" id="deletar"><i class="fa fa-trash"></i></button>'
 function order_by_occurrence(arr) {
     var counts = {};
     arr.forEach(function(value){
@@ -26,25 +26,50 @@ function order_by_occurrence(arr) {
     });
 }
 
-function tabela(){
+$('#tabela').on('click', '#deletar', function() {
+    var table = $('#resultado').DataTable();
+    var row = $(this).parents('tr');
 
-        $.ajax({
-            type: 'GET',
-            url: '/venda_produtos/get_barcode',
-            data: {codebar: codigo_produto_replaced},
-            success: function(response){
-                totalVenda.push({codigo: response.data[0].codebar, nome: response.data[0].nome});
-                console.log(totalVenda);
-                $('#resultado').DataTable({
+    if ($(row).hasClass('child')) {
+        table.row($(row).prev('tr')).remove().draw();
+    } else {
+        table
+            .row($(this).parents('tr'))
+            .remove()
+            .draw();
+        console.log(totalVenda.find({preco: $(this).parents('tr').parent('preco')}))
+    }
+
+})
+
+function tabela() {
+    $.ajax({
+        type: 'GET',
+        url: '/venda_produtos/get_barcode',
+        data: {codebar: codigo_produto_replaced},
+        success: function (response) {
+            totalVenda.push({codigo: response.data[0].codebar, nome: response.data[0].nome, preco: codigo_preco});
+            console.log(totalVenda);
+            $('#resultado').DataTable(
+                {
                     destroy: true,
+                    search: false,
                     data: totalVenda,
                     columns: [
                         {data: 'codigo'},
-                        {data: 'nome'}
-                    ]
-                })
-            }
-        })
+                        {data: 'nome'},
+                        {data: 'preco'},
+                        {
+                            data: function (data, row) {
+                                data = botao_deletar
+                                return data
+                            }
+                        }
+                    ],
+                });
+        }
+    });
+
 }
 
 function scannerEnd() {
@@ -54,7 +79,7 @@ function scannerEnd() {
     codigo_preco = codigo_produto.replace(/(\d{1})(\d{6})(\d{3})(\d{2})(\d{1})/, '$3,$4');
     codigo_preco = 'R$' + codigo_preco.replace(/([0])/, '');
     console.log(codigo_preco);
-    $(document).on('turbo:load', load_quagga(), tabela());
+    $(document).on('turbo:load', load_quagga());
 
 }
 
@@ -70,6 +95,7 @@ function  load_quagga(){
                     last_result = [];
                     codigo_produto = code;
                     codigo_produto_replaced = codigo_produto.replace(/(\d{3})(\d{2})(\d{8})/, '$2');
+                    tabela();
                     scannerEnd();
                 }
             });
@@ -92,4 +118,4 @@ function  load_quagga(){
         });
     }
 }
-$(document).on(load_quagga(), tabela());
+$(document).on(load_quagga());
