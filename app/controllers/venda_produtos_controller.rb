@@ -38,9 +38,7 @@ class VendaProdutosController < DefaultController
 
   def get_barcode
     @venda_produto = VendaProduto.where(:codebar =>  params[:codebar])
-    @venda_produto_total << @venda_produto.inspect
-    puts @venda_produto_total
-    render json: {data: @venda_produto_total}
+    render json: {data: @venda_produto}
   end
 
   # PATCH/PUT /venda_produtos/1 or /venda_produtos/1.json

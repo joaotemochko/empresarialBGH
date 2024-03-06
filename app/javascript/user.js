@@ -10,6 +10,7 @@
 //= require tables
 //
 
+const totalVenda = []
 
 function order_by_occurrence(arr) {
     var counts = {};
@@ -25,37 +26,40 @@ function order_by_occurrence(arr) {
     });
 }
 
+function tabela(){
+
+        $.ajax({
+            type: 'GET',
+            url: '/venda_produtos/get_barcode',
+            data: {codebar: codigo_produto_replaced},
+            success: function(response){
+                totalVenda.push({codigo: response.data[0].codebar, nome: response.data[0].nome});
+                console.log(totalVenda);
+                $('#resultado').DataTable({
+                    destroy: true,
+                    data: totalVenda,
+                    columns: [
+                        {data: 'codigo'},
+                        {data: 'nome'}
+                    ]
+                })
+            }
+        })
+}
+
 function scannerEnd() {
     Quagga.stop();
     console.log(code);
-    codigo_produto = code;
-    codigo_produto_replaced = codigo_produto.replace(/(\d{3})(\d{2})(\d{8})/, '$2');
     console.log(codigo_produto_replaced);
     codigo_preco = codigo_produto.replace(/(\d{1})(\d{6})(\d{3})(\d{2})(\d{1})/, '$3,$4');
     codigo_preco = 'R$' + codigo_preco.replace(/([0])/, '');
     console.log(codigo_preco);
-    $('#resultado').DataTable({
-
-        ajax:(
-            {
-                type: "GET",
-                url: '/venda_produtos/get_barcode',
-                data: {codebar: codigo_produto_replaced}
-        }),
-        destroy: true,
-        columns: [
-            {data: 'codebar'},
-            {data: 'nome'}
-        ]
-    });
-
-    $(document).on('turbo:load', load_quagga());
+    $(document).on('turbo:load', load_quagga(), tabela());
 
 }
 
 function  load_quagga(){
     if ($('#barcode-scanner').length > 0 && navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function') {
-
         var last_result = [];
         if (Quagga.initialized === undefined) {
             Quagga.onDetected(function(result) {
@@ -64,6 +68,8 @@ function  load_quagga(){
                 if (last_result.length > 20) {
                     code = order_by_occurrence(last_result)[0];
                     last_result = [];
+                    codigo_produto = code;
+                    codigo_produto_replaced = codigo_produto.replace(/(\d{3})(\d{2})(\d{8})/, '$2');
                     scannerEnd();
                 }
             });
@@ -86,4 +92,4 @@ function  load_quagga(){
         });
     }
 }
-$(document).on(load_quagga());
+$(document).on(load_quagga(), tabela());
