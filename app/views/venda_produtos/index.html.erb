@@ -2,7 +2,7 @@
 
 <h1>Venda produtos</h1>
 <div id="container-fluid">
-  <div id="barcode-scanner"></div>
+  <div class="d-flex flex-row justify-content-center mt-auto" id="barcode-scanner"></div>
   <div>
     <table class="table" id="resultado">
       <thead>
@@ -17,12 +17,14 @@
       <tbody id="tabela">
       <tr>
         <td></td>
-        <td></td>
+        <td id="nome"></td>
         <td></td>
         <td></td>
       </tr>
       </tbody>
     </table>
-
+    <div class="d-flex flex-row justify-content-end mt-auto">
+  <%= button_tag 'Enviar venda', class: 'btn btn-primary', id: 'enviar' %>
+  </div>
   </div>
 </div>

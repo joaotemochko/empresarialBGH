@@ -26,10 +26,12 @@ function order_by_occurrence(arr) {
     });
 }
 
-$('#tabela').on('click', '#deletar', function() {
+$('#resultado').off('click').on('click', '#deletar', function () {
     var table = $('#resultado').DataTable();
+    var data = table.row($(this).parents('tr')).index();
+    console.log(table.row($(this).parents('tr')).index())
+    totalVenda.splice(data, 1);
     var row = $(this).parents('tr');
-
     if ($(row).hasClass('child')) {
         table.row($(row).prev('tr')).remove().draw();
     } else {
@@ -37,10 +39,14 @@ $('#tabela').on('click', '#deletar', function() {
             .row($(this).parents('tr'))
             .remove()
             .draw();
-        console.log(totalVenda.find({preco: $(this).parents('tr').parent('preco')}))
     }
+});
 
-})
+$(document).ready()
+{
+    load_quagga();
+    tabela();
+}
 
 function tabela() {
     $.ajax({
@@ -49,10 +55,10 @@ function tabela() {
         data: {codebar: codigo_produto_replaced},
         success: function (response) {
             totalVenda.push({codigo: response.data[0].codebar, nome: response.data[0].nome, preco: codigo_preco});
-            console.log(totalVenda);
             $('#resultado').DataTable(
                 {
                     destroy: true,
+                    searching: false,
                     search: false,
                     data: totalVenda,
                     columns: [
@@ -64,7 +70,7 @@ function tabela() {
                                 data = botao_deletar
                                 return data
                             }
-                        }
+                        },
                     ],
                 });
         }
@@ -118,4 +124,3 @@ function  load_quagga(){
         });
     }
 }
-$(document).on(load_quagga());

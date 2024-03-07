@@ -41,6 +41,9 @@ class VendaProdutosController < DefaultController
     render json: {data: @venda_produto}
   end
 
+  def set_venda
+  end
+
   # PATCH/PUT /venda_produtos/1 or /venda_produtos/1.json
   def update
     respond_to do |format|
