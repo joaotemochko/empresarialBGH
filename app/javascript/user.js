@@ -21,7 +21,7 @@ var peso, codigo_produto_replaced
 
 
 function vendaTotal(){
-    document.querySelector('#total').innerHTML = 'R$' + total.toString().replace('.', ',')
+    document.querySelector('#total').innerHTML = 'TOTAL: R$' + total.toString().replace('.', ',')
 }
 function order_by_occurrence(arr) {
     var counts = {};
@@ -60,8 +60,8 @@ $('#resultado').off('click').on('click', '#deletar', function () {
 
 $('#entradaManual').off('click').on('click', '#submit', function (){
     codigo_produto = document.getElementById('fcode').value.toString();
-    codigo_produto_replaced = codigo_produto.replace(/(\d{2})(\d{6})/, '$1')
-    peso = codigo_produto.replace(/(\d{2})(\d+)(\d{3})/, '$2.$3')
+    codigo_produto_replaced = codigo_produto.replace(/(\d{2})(\d{5})/, '$1')
+    peso = codigo_produto.replace(/(\d{2})(\d{2})(\d{3})/, '$2.$3')
     tabela();
     document.getElementById('fcode').value = null;
     $(document).on('turbo:load', load_quagga(), vendaTotal());
@@ -72,8 +72,10 @@ $('#botao_enviar').off('click').on('click', '#enviar', function (){
     $.ajax({
        type: 'POST',
        url: '/venda_produtos/set_venda',
-       data: {forma_pagamento: document.getElementById('forma_pagamento').value, total: total, quantidade_total: quantidadeTotal, produtos_codigos: JSON.parse(totalVenda)}
+       data: {forma_pagamento: document.getElementById('forma_pagamento').value, total: total, quantidade_total: quantidadeTotal, codigos_produtos:totalVenda
+    },
     });
+    window.location.reload();
 });
 
 $(document).ready()
@@ -148,8 +150,8 @@ function  load_quagga(){
                     code = order_by_occurrence(last_result)[0];
                     last_result = [];
                     codigo_produto = code;
-                    codigo_produto_replaced = codigo_produto.replace(/(\d{3})(\d{2})(\d{8})/, '$2');
-                    peso = codigo_produto.replace(/(\d{1})(\d{6})(\d{3})(\d{3})/, '$3.$4');
+                    codigo_produto_replaced = codigo_produto.replace(/(\d{5})(\d{2})(\d{6})/, '$2');
+                    peso = codigo_produto.replace(/(\d{1})(\d{6})(\d{2})(\d{3})(\d{1})/, '$3.$4');
                     scannerEnd();
                 }
             });

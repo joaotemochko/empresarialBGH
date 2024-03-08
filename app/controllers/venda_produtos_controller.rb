@@ -14,7 +14,6 @@ class VendaProdutosController < DefaultController
   # GET /venda_produtos/new
   def new
     @venda_produto = VendaProduto.new
-    @venda_produto.codebar = params[:codebar]
   end
 
   # GET /venda_produtos/1/edit
@@ -42,20 +41,22 @@ class VendaProdutosController < DefaultController
   end
 
   def set_venda
-    elementos = []
-    @codigo = params[:produtos_codigos.codigo]
-    puts @codigo
-      procura_produto = Produto.where(:codigo => @codigo)
-      quantidade_retirada = (procura_produto.select(:quantidade) - params[:procura_produto[:peso_unidade_total]])
-      procura_produto.update!(
-        :quantidade => quantidade_retirada
-      )
+    @codigo = []
+    @obj = {}
+    @obj = (params.require(:codigos_produtos).permit!); @obj.each {|k,v| @codigo.push(@obj[k] = v)}
     total = params[:total].to_f
+    @codigo.each do |key|
+      procura_codigo = Produto.find_by_codigo(key[:codigo])
+      retira_quantidade = (procura_codigo.quantidade - key[:peso_unidade_total].to_f)
+      procura_codigo.update!(
+        :quantidade => retira_quantidade
+     )
+    end
     if params[:forma_pagamento] == 'PIX' or params[:forma_pagamento] == 'Dinheiro'
       total = total - (total * 0.05)
     end
     VendaProduto.create!(
-      :quantidade_total => params[:quantidade_total],
+      :quantidade_total => params[:quantidade_total].to_f,
       :forma_pagamento => params[:forma_pagamento],
       :preco_total => total
     )
