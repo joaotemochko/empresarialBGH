@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_03_181546) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_07_104842) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -59,6 +59,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_03_181546) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "retirada"
+    t.integer "codigo"
+    t.float "preco"
   end
 
   create_table "users", force: :cascade do |t|
@@ -76,9 +78,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_03_181546) do
 
   create_table "venda_produtos", force: :cascade do |t|
     t.string "nome"
-    t.string "codebar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "preco_total"
+    t.float "quantidade_total"
+    t.string "forma_pagamento"
   end
 
   add_foreign_key "estoques", "fornecedors"

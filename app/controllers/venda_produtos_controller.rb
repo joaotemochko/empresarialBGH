@@ -37,11 +37,28 @@ class VendaProdutosController < DefaultController
   end
 
   def get_barcode
-    @venda_produto = VendaProduto.where(:codebar =>  params[:codebar])
-    render json: {data: @venda_produto}
+    @produto = Produto.where(:codigo =>  params[:codigo])
+    render json: {data: @produto}
   end
 
   def set_venda
+    elementos = []
+    @codigo = params[:produtos_codigos.codigo]
+    puts @codigo
+      procura_produto = Produto.where(:codigo => @codigo)
+      quantidade_retirada = (procura_produto.select(:quantidade) - params[:procura_produto[:peso_unidade_total]])
+      procura_produto.update!(
+        :quantidade => quantidade_retirada
+      )
+    total = params[:total].to_f
+    if params[:forma_pagamento] == 'PIX' or params[:forma_pagamento] == 'Dinheiro'
+      total = total - (total * 0.05)
+    end
+    VendaProduto.create!(
+      :quantidade_total => params[:quantidade_total],
+      :forma_pagamento => params[:forma_pagamento],
+      :preco_total => total
+    )
   end
 
   # PATCH/PUT /venda_produtos/1 or /venda_produtos/1.json
@@ -67,6 +84,10 @@ class VendaProdutosController < DefaultController
     end
   end
 
+  def lista_vendas
+    @venda_produto = VendaProduto.all
+  end
+
   private
 
     def set_arrayproduto
@@ -79,6 +100,6 @@ class VendaProdutosController < DefaultController
 
     # Only allow a list of trusted parameters through.
     def venda_produto_params
-      params.require(:venda_produto).permit(:nome, :codebar)
+      params.require(:venda_produto).permit(:nome, :preco_total, :quantidade_total, :forma_pagamento)
     end
 end

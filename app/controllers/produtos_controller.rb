@@ -53,6 +53,9 @@ class ProdutosController < DefaultController
     if @produto.retirada == nil
       @produto.retirada = 0
     end
+    if @produto.preco == nil
+      @produto.preco = 0
+    end
     respond_to do |format|
       if @produto.save
         format.html { redirect_to produto_url(@produto), notice: "Produto was successfully created." }
@@ -109,6 +112,6 @@ class ProdutosController < DefaultController
 
     # Only allow a list of trusted parameters through.
     def produto_params
-      params.require(:produto).permit(:nome, :desc, :quantidade)
+      params.require(:produto).permit(:nome, :desc, :quantidade, :codigo, :preco)
     end
 end

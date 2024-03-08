@@ -4,11 +4,17 @@
     <%= produto.nome %>
   </td>
 
+  <td id="codigo">
+    <%= produto.codigo %>
+  </td>
   <% if current_user.admin %>
     <td id="desc">
       <%= produto.desc %>
     </td>
   <% end %>
+  <td id="preco">
+    <%= produto.preco %>
+  </td>
   <td id="entrada">
     <% quantidade_total = @estoque.where(:produto_id => produto.id) %>
     <% @@sum = t('valores.peso', value: '%0.3f' %quantidade_total.sum(:quantidade)) %>

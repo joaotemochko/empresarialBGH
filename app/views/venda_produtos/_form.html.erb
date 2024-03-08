@@ -17,8 +17,18 @@
   </div>
 
   <div>
-    <%= form.label :codebar, style: "display: block" %>
-    <%= form.text_field :codebar %>
+    <%= form.label 'Total R$', style: "display: block" %>
+    <%= form.label :preco_total, t('valores.moeda', value: '%0.2f' % @venda_produto.preco_total) %>
+  </div>
+
+  <div>
+    <%= form.label 'Quantidade Total', style: "display: block" %>
+    <%= form.label :quantidade_total, t('valores.peso', value: '%0.3f' % @venda_produto.quantidade_total) %>
+  </div>
+
+  <div>
+    <%= form.label 'Forma de Pagamento', style: "display: block" %>
+    <%= form.label :forma_pagamento %>
   </div>
 
   <div>

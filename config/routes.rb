@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :venda_produtos do
+    post :set_venda, on: :collection
     post :get_barcode, on: :collection
     get :get_barcode, on: :collection
+    get :lista_vendas, on: :collection
   end
   resources :produtos
   resources :fornecedors
