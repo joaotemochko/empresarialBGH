@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'lista_vendas/:venda_produto_id/index', to: 'lista_vendas#index', as: 'lista_vendas'
   resources :venda_produtos do
     post :set_venda, on: :collection
     post :get_barcode, on: :collection

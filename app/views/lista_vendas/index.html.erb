@@ -1,0 +1,30 @@
+<h1>Visualizar Venda</h1>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-hover table-striped">
+    <thead>
+    <tr>
+      <th>Código</th>
+      <th>Nome</th>
+      <th>Peso</th>
+      <th>Preço</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <% @lista_venda.each do |vendas| %>
+        <td><%= vendas.codigo %></td>
+        <td><%= vendas.nome %></td>
+        <td><%= t('valores.peso', value: '%0.3f' %vendas.peso) %></td>
+        <td><%= t('valores.moeda', value: '%0.2f' %vendas.preco) %></td>
+        </tr>
+
+      <% end %>
+      </tbody>
+  </table>
+
+
+</div>
+
+<%= button_to 'Voltar', lista_vendas_venda_produtos_url, class: 'btn btn-outline-dark', method: :get %>

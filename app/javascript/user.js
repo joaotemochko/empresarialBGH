@@ -12,7 +12,6 @@
 
 const totalVenda = [];
 const botao_deletar = '<button class="btn btn-danger" id="deletar"><i class="fa fa-trash"></i></button>'
-const codigos = {};
 var subtrai
 var quantidadeTotal = 0;
 var total = 0;
@@ -20,7 +19,7 @@ var codigo_produto = ''
 var peso, codigo_produto_replaced
 
 
-function vendaTotal(){
+function vendaTotal() {
     document.querySelector('#total').innerHTML = 'TOTAL: R$' + total.toString().replace('.', ',')
 }
 function order_by_occurrence(arr) {
@@ -45,7 +44,6 @@ $('#resultado').off('click').on('click', '#deletar', function () {
     total = (total - parseFloat(subtrai)).toFixed(2)
     quantidadeTotal = (quantidadeTotal - parseFloat(totalVenda[data].peso_unidade_total)).toFixed(3)
     totalVenda.splice(data, 1);
-    codigos.splice(data,1);
     vendaTotal();
     var row = $(this).parents('tr');
     if ($(row).hasClass('child')) {
@@ -70,10 +68,10 @@ $('#entradaManual').off('click').on('click', '#submit', function (){
 
 $('#botao_enviar').off('click').on('click', '#enviar', function (){
     $.ajax({
-       type: 'POST',
-       url: '/venda_produtos/set_venda',
-       data: {forma_pagamento: document.getElementById('forma_pagamento').value, total: total, quantidade_total: quantidadeTotal, codigos_produtos:totalVenda
-    },
+        type: 'POST',
+        url: '/venda_produtos/set_venda',
+        data: {forma_pagamento: document.getElementById('forma_pagamento').value, total: total, quantidade_total: quantidadeTotal, codigos_produtos: totalVenda
+        },
     });
     window.location.reload();
 });
@@ -108,14 +106,14 @@ function tabela() {
                         {data: 'codigo'},
                         {data: 'nome'},
                         {data: 'peso_unidade_total', render: function(data, row) {
-                            return data.replace('.', ',') + "Kg";
+                                return data.replace('.', ',') + "Kg";
 
-                        }
+                            }
                         },
                         {data: 'preco_unidade_total', render: function(data, row) {
-                            return "R$" + data.replace('.', ',')
+                                return "R$" + data.replace('.', ',')
 
-                        }
+                            }
                         },
                         {
                             data: function (data, row) {
@@ -134,8 +132,8 @@ function scannerEnd() {
     tabela();
     Quagga.stop();
     console.log(code);
-    console.log(codigo_produto_replaced);
-    $(document).on('turbo:load', load_quagga(), $('#total').append(total.toString()));
+    console.log(total);
+    $(document).on(load_quagga());
 
 }
 
@@ -152,6 +150,7 @@ function  load_quagga(){
                     codigo_produto = code;
                     codigo_produto_replaced = codigo_produto.replace(/(\d{5})(\d{2})(\d{6})/, '$2');
                     peso = codigo_produto.replace(/(\d{1})(\d{6})(\d{2})(\d{3})(\d{1})/, '$3.$4');
+                    console.log(code)
                     scannerEnd();
                 }
             });

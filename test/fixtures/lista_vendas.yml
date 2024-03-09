@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  codigo: 1
+  nome: MyString
+  peso: 1.5
+  preco: 1.5
+
+two:
+  codigo: 1
+  nome: MyString
+  peso: 1.5
+  preco: 1.5

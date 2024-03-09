@@ -1,6 +1,6 @@
 <div id="<%= dom_id venda_produto %>">
   <td id="id">
-    <%= venda_produto.id %>
+    <%= link_to venda_produto.id,  lista_vendas_path(venda_produto.id) %>
   </td>
 
   <td>
@@ -13,7 +13,6 @@
   <td>
     <%= t('valores.moeda', value: '%0.2f' %venda_produto.preco_total) %>
   </td>
-
   <td>
     <%= venda_produto.forma_pagamento %>
   </td>

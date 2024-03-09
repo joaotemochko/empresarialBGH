@@ -48,7 +48,23 @@
       <% end %>
     </li>
 
+
     <% if current_user.admin %>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVendasvarejo"
+           aria-expanded="true" aria-controls="collapseVendasvarejo">
+          <i class="fas fa-fw fa-store"></i>
+          <span>Vendas(VAREJO)</span>
+        </a>
+        <div id="collapseVendasvarejo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Acesso rápido:</h6>
+            <%= link_to 'Vender', venda_produtos_path, class: 'collapse-item' %>
+            <%= link_to 'Mostrar Vendas', lista_vendas_venda_produtos_path, class: 'collapse-item' %>
+          </div>
+        </div>
+      </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -106,6 +122,13 @@
         </div>
       </div>
     </li>
+
+    <% else %>
+      <li class="nav-item">
+        <%= link_to venda_produtos_path, class: 'nav-link collapsed' do %>
+          <i class="fas fa-fw fa-house-user"></i><span>Vendas (Varejo)</span>
+        <% end %>
+      </li>
     <% end %>
 
     <!-- Divider -->

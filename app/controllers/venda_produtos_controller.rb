@@ -41,25 +41,36 @@ class VendaProdutosController < DefaultController
   end
 
   def set_venda
+    total = params[:total].to_f
+    if params[:forma_pagamento] == 'PIX' or params[:forma_pagamento] == 'Dinheiro'
+      total = total - (total * 0.05)
+    end
+    @venda_produto = VendaProduto.create!(
+      :quantidade_total => params[:quantidade_total].to_f,
+      :forma_pagamento => params[:forma_pagamento],
+      :preco_total => total
+    )
+
     @codigo = []
     @obj = {}
     @obj = (params.require(:codigos_produtos).permit!); @obj.each {|k,v| @codigo.push(@obj[k] = v)}
-    total = params[:total].to_f
+
     @codigo.each do |key|
       procura_codigo = Produto.find_by_codigo(key[:codigo])
       retira_quantidade = (procura_codigo.quantidade - key[:peso_unidade_total].to_f)
       procura_codigo.update!(
         :quantidade => retira_quantidade
      )
+
+      ListaVenda.create!(
+        :codigo => key[:codigo],
+        :nome => key[:nome],
+        :peso => key[:peso_unidade_total],
+        :preco => key[:preco_unidade_total],
+        :venda_produto_id => @venda_produto.id
+      )
     end
-    if params[:forma_pagamento] == 'PIX' or params[:forma_pagamento] == 'Dinheiro'
-      total = total - (total * 0.05)
-    end
-    VendaProduto.create!(
-      :quantidade_total => params[:quantidade_total].to_f,
-      :forma_pagamento => params[:forma_pagamento],
-      :preco_total => total
-    )
+
   end
 
   # PATCH/PUT /venda_produtos/1 or /venda_produtos/1.json

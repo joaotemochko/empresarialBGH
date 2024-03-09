@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_07_104842) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_08_220646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -40,6 +40,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_07_104842) do
     t.string "obs"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "lista_vendas", force: :cascade do |t|
+    t.integer "codigo"
+    t.string "nome"
+    t.float "peso"
+    t.float "preco"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "venda_produto_id", null: false
+    t.index ["venda_produto_id"], name: "index_lista_vendas_on_venda_produto_id"
   end
 
   create_table "logs", force: :cascade do |t|
@@ -87,5 +98,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_07_104842) do
 
   add_foreign_key "estoques", "fornecedors"
   add_foreign_key "estoques", "produtos"
+  add_foreign_key "lista_vendas", "venda_produtos"
   add_foreign_key "logs", "produtos"
 end
