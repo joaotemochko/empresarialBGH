@@ -4,3 +4,4 @@
 //= link_tree ../../../vendor/javascript .js
 //= link_tree ../../../lib/assets/images
 //= link_tree ../../../lib/assets/javascript .js
+//= link_directory ../../../dll

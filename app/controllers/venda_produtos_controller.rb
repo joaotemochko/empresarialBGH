@@ -56,12 +56,6 @@ class VendaProdutosController < DefaultController
     @obj = (params.require(:codigos_produtos).permit!); @obj.each {|k,v| @codigo.push(@obj[k] = v)}
 
     @codigo.each do |key|
-      procura_codigo = Produto.find_by_codigo(key[:codigo])
-      retira_quantidade = (procura_codigo.quantidade - key[:peso_unidade_total].to_f)
-      procura_codigo.update!(
-        :quantidade => retira_quantidade
-     )
-
       ListaVenda.create!(
         :codigo => key[:codigo],
         :nome => key[:nome],

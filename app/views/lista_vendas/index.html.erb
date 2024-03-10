@@ -1,30 +1,52 @@
+<p style="color: green"><%= notice %></p>
+
 <h1>Visualizar Venda</h1>
 
-<div class="table-responsive">
-  <table class="table table-bordered table-hover table-striped">
-    <thead>
-    <tr>
-      <th>Código</th>
-      <th>Nome</th>
-      <th>Peso</th>
-      <th>Preço</th>
-    </tr>
-    </thead>
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+      <thead>
+      <tr>
+        <th>Código</th>
+        <th>Nome</th>
+        <th>Peso</th>
+        <th>Preço</th>
+      </tr>
+      </thead>
 
-    <tbody>
-    <tr>
-      <% @lista_venda.each do |vendas| %>
-        <td><%= vendas.codigo %></td>
-        <td><%= vendas.nome %></td>
-        <td><%= t('valores.peso', value: '%0.3f' %vendas.peso) %></td>
-        <td><%= t('valores.moeda', value: '%0.2f' %vendas.preco) %></td>
-        </tr>
+      <tbody>
+      <tr>
+        <% @lista_venda.each do |vendas| %>
+          <td><%= vendas.codigo %></td>
+          <td><%= vendas.nome %></td>
+          <td><%= t('valores.peso', value: '%0.3f' %vendas.peso) %></td>
+          <td><%= t('valores.moeda', value: '%0.2f' %vendas.preco) %></td>
+          </tr>
 
-      <% end %>
-      </tbody>
-  </table>
+        <% end %>
+        </tbody>
+    </table>
 
 
+
+    <div id="form_desconto">
+      Desconto: <input type="text" id="desconto">
+      <button class="btn btn-dark" id="submit_desconto">Aplicar Desconto</button>
+    </div>
+    <div class="d-flex flex-row justify-content-end mt-auto">
+      <h3 id="show_desconto"><%= @forma_pagamento[0] %></h3>
+    </div>
+
+    <div class="d-flex flex-row justify-content-end mt-auto">
+      <h2>TOTAL: R$</h2><h2 id="total_show"><%= '%0.2f' %@total %></h2>
+    </div>
+    <br>
+    <div class="d-flex flex-row justify-content-end mt-auto">
+      <%= button_to 'Fechar venda', set_retirada_quantidade_lista_vendas_path, class: 'btn btn-primary', method: :get %>
+    </div>
+  </div>
 </div>
 
 <%= button_to 'Voltar', lista_vendas_venda_produtos_url, class: 'btn btn-outline-dark', method: :get %>
+
+<%= javascript_include_tag 'lista_vendas' %>

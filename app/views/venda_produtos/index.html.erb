@@ -9,6 +9,7 @@
 <div id="container-fluid">
   <div class="d-flex flex-row justify-content-center mt-auto" id="barcode-scanner"></div>
   <div>
+    <div class="table-responsive">
     <table class="table" id="resultado">
       <thead>
       <tr>
@@ -30,6 +31,7 @@
       </tr>
       </tbody>
     </table>
+    </div>
     <div class="d-flex flex-row justify-content-md-start mt-auto">
       <select id="forma_pagamento" class="form form-control-sm">
         <option value="PIX">PIX</option>
@@ -45,5 +47,4 @@
   <%= button_tag 'Enviar venda', class: 'btn btn-primary', id: 'enviar' %>
   </div>
   </div>
-  <%= javascript_include_tag "vendas_varejo" %>
 </div>

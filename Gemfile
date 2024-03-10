@@ -75,3 +75,5 @@ gem "pg_search", "~> 2.3"
 gem "ajax-datatables-rails", "~> 1.4"
 
 gem "jquery-datatables", "~> 1.10"
+
+gem "ffi", "~> 1.16"

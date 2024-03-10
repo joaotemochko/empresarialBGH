@@ -1,0 +1,23 @@
+class Sat_info
+
+  @VERSAO_ER = '2.28.05'
+
+  @VERSAO_LAYOUT_ARQUIVO_DADOS_AC = '0.07'
+
+  @XML_DECL = '<?xml version="1.0" ?>'
+
+  @XML_DECL_UNICODE = '<?xml version="1.0" encoding="utf-8" ?>'
+
+  @ROOT_TAG_VENDA = 'CFe'
+
+  @ROOT_TAG_CANCELAMENTO = 'CFeCanc'
+
+  @ASSINATURA_AC_TESTE = 'SGR-SAT SISTEMA DE GESTAO E RETAGUARDA DO SAT'
+
+
+  @CERTIFICADO_ACSAT_SEFAZ = 1
+
+  @TIPOS_CERTIFICADOS = (
+    [@CERTIFICADO_ACSAT_SEFAZ, 'AC-SAT/SEFAZ']
+  )
+end

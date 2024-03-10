@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
   get 'lista_vendas/:venda_produto_id/index', to: 'lista_vendas#index', as: 'lista_vendas'
+  get 'sat/index', to: 'sat#index'
+
+  resources :lista_vendas do
+    get :set_retirada_quantidade, on: :collection
+    post :set_desconto, on: :collection
+  end
+
   resources :venda_produtos do
     post :set_venda, on: :collection
     post :get_barcode, on: :collection
