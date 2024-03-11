@@ -3,37 +3,30 @@ class ListaVendasController < DefaultController
     @lista_venda = ListaVenda.where(:venda_produto_id => lista_venda_params)
     @venda_produto_id = @lista_venda.pluck(:venda_produto_id)
     @forma_pagamento = VendaProduto.where(:id => @venda_produto_id).pluck(:forma_pagamento)
+    @venda_produto_id[0]
     @total = VendaProduto.where(:id => @venda_produto_id).pluck(:preco_total)
   end
   def set_retirada_quantidade
     @lista_venda = ListaVenda.where(:venda_produto_id => lista_venda_params)
     @lista_venda.each do |lista|
     procura_codigo = Produto.find_by_codigo(lista.codigo)
-    peso_retira = @lista_venda.select(:peso).where(:codigo => lista.codigo)
-    retira_quantidade = (procura_codigo.quantidade - peso_retira.to_f)
+    peso_retira = @lista_venda.where(:codigo => lista.codigo).pluck(:peso)
+    retira_quantidade = (procura_codigo.quantidade - peso_retira[0].to_f)
     procura_codigo.update!(
       :quantidade => retira_quantidade
     )
     end
-
-    redirect_to venda_produtos_path
+    redirect_to welcome_index_path
   end
 
-  def set_desconto
-    @lista_venda = ListaVenda.where(:venda_produto_id => lista_venda_params)
-    @venda_produto_id = @lista_venda.pluck(:venda_produto_id)
-    select = VendaProduto.where(:id => @venda_produto_id).pluck(:quantidade_total)
-    if @desconto >= 0 and @desconto <= 100
-      total = select - (select * (@desconto/100))
-      VendaProduto.update!(
-        :preco_total => total
-      )
-      redirect_to @lista_venda, notice: "Desconto aplicado com sucesso!"
-      @desconto = 0
-    else
-      redirect_to @lista_venda, notice: "Desconto só pode ser aplicado entre 0% a 100%."
-      @desconto = 0
-    end
+
+  def get_desconto
+    desconto = params[:desconto]
+    @venda_produto_id = params[:venda_produto_id]
+    @venda_produto = VendaProduto.where(:id => @venda_produto_id)
+    @venda_produto.update!(
+      :preco_total => desconto
+    )
   end
 
   private
