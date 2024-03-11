@@ -48,7 +48,8 @@ class VendaProdutosController < DefaultController
     @venda_produto = VendaProduto.create!(
       :quantidade_total => params[:quantidade_total].to_f,
       :forma_pagamento => params[:forma_pagamento],
-      :preco_total => total
+      :preco_total => total,
+      :status => 'ABERTO'
     )
 
     @codigo = []

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_08_220646) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_11_005102) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -94,6 +94,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_08_220646) do
     t.float "preco_total"
     t.float "quantidade_total"
     t.string "forma_pagamento"
+    t.string "status"
   end
 
   add_foreign_key "estoques", "fornecedors"

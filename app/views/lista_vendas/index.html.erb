@@ -30,21 +30,49 @@
 
 
 
+    <br>
     <div id="form_desconto">
       Desconto: <input type="text" id="desconto">
       <button class="btn btn-dark" id="submit_desconto">Aplicar Desconto</button>
     </div>
+    <br>
     <div class="d-flex flex-row justify-content-end mt-auto">
       <h3 id="show_desconto"><%= @forma_pagamento[0] %></h3>
     </div>
+    <br>
+    <div class="d-flex flex-row justify-content-end mt-auto">
+      <h3 id="pega_desconto">Forma de Pagamento: <%= @forma_pagamento[0] %></h3>
+    </div>
+    <br>
 
+    <% if @forma_pagamento[0] == 'Dinheiro' and @status[0] == 'ABERTO' %>
+      <div class="d-flex flex-row, justify-content-md-end mt-auto">
+        <div id="form_troco">
+          Dinheiro: <input type="text" id="troco">
+          <button class="btn btn-dark" id="submit_troco">Enviar</button>
+        </div>
+      </div>
+      <br>
+    <% end %>
     <div class="d-flex flex-row justify-content-end mt-auto">
       <h2>TOTAL: R$</h2><h2 id="total_show"><%= '%0.2f' %@total %></h2>
     </div>
-    <br>
-    <div class="d-flex flex-row justify-content-end mt-auto" id="botao_fechar_venda">
-      <%= button_to 'Fechar venda', set_retira_quantidade_path(@venda_produto_id), class: 'btn btn-primary', id: 'submit_fecha_venda', method: :post %>
+
+    <% if @forma_pagamento[0] == 'Dinheiro' %>
+      <div class="d-flex flex-row justify-content-md-end mt-auto">
+        <h2 id="show_troco"></h2>
+      </div>
+    <% end %>
+    <% if @status[0] == 'FECHADO' %>
+    <div class="d-flex justify-content-md-start mt-auto">
+      <h1>Status: <%= @status[0] %></h1>
     </div>
+    <% else %>
+      <br>
+    <div class="d-flex flex-row justify-content-end mt-auto" id="botao_fechar_venda">
+      <%= button_to 'Fechar venda', set_retira_quantidade_post_path(@venda_produto_id), class: 'btn btn-primary', id: 'submit_fecha_venda', method: :post %>
+    </div>
+      <% end %>
   </div>
 </div>
 

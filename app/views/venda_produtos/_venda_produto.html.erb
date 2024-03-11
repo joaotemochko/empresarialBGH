@@ -3,18 +3,20 @@
     <%= link_to venda_produto.id,  lista_vendas_path(venda_produto.id) %>
   </td>
 
-  <td>
+  <td id="data">
     <%= l(venda_produto.created_at.to_date, format: :default) %>
   </td>
-  <td>
+  <td id="peso">
     <%= t('valores.peso', value: '%0.3f' %venda_produto.quantidade_total) %>
   </td>
 
-  <td>
+  <td id="moeda">
     <%= t('valores.moeda', value: '%0.2f' %venda_produto.preco_total) %>
   </td>
-  <td>
+  <td id="forma_pagamento">
     <%= venda_produto.forma_pagamento %>
   </td>
+
+  <td id="status"><%= venda_produto.status %></td>
 
 </div>
