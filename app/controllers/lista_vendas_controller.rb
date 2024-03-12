@@ -11,36 +11,25 @@ class ListaVendasController < DefaultController
 
 
   def set_retirada_quantidade
-   @troco_utilizado = 0
    @forma_pagamento = VendaProduto.where(:id => lista_venda_params).pluck(:forma_pagamento)
    @venda_produto = VendaProduto.find(lista_venda_params)
+   @troco = []
+   @troco.push(params[:troco])
 
    @alert_codigo = []
 
-   if @alert_codigo != nil
-     render(
-       html: "<script>alert('O(s) Produto(s) de código(s) '+ #{@alert_codigo} + ' está com quantidade zerada/negativa. Por favor verifique o produto!'); window.location.href = '#{lista_vendas_venda_produtos_path}'</script>".html_safe,
-       layout: 'default'
-     )
-   end
-
-   if params[:troco] == nil and @forma_pagamento[0].to_s == 'Dinheiro'
-     redirect_to lista_vendas_path
-   else
-     @troco = []
-     @troco.push(params[:troco])
-     if params[:troco] == nil
-       @troco = ["1"]
-     end
+   if @troco[0] != nil and @forma_pagamento[0].to_s == 'Dinheiro'
      @troco_utilizado = @troco[0].delete_prefix('"').delete_suffix('"').to_f
-      end
-       if @troco_utilizado < 0 and @forma_pagamento[0].to_s == 'Dinheiro'
+   elsif @troco[0] == nil and not @forma_pagamento[0].to_s == 'Dinheiro'
+     @troco_utilizado = 1
+   elsif @troco[0] == nil and @forma_pagamento[0].to_s == 'Dinheiro'
+     redirect_to lista_vendas_path
+   elsif @troco_utilizado < 0 and @forma_pagamento[0].to_s == 'Dinheiro'
           render(
             html: "<script>alert('Troco inválido, informe um troco maior ou igual a 0!'); window.location.href = '#{lista_vendas_path}'</script>".html_safe,
             layout: 'default'
           )
-       end
-
+   elsif @troco_utilizado >= 0
           @lista_venda = ListaVenda.where(:venda_produto_id => lista_venda_params)
           @lista_venda.each do |lista|
             @procura_codigo = Produto.find_by_codigo(lista.codigo)
@@ -53,14 +42,20 @@ class ListaVendasController < DefaultController
             puts @procura_codigo.id
             if @procura_codigo.quantidade <= 0
               @alert_codigo << @procura_codigo.id
-          end
+            end
          end
           @venda_produto.update!(
             :status => 'FECHADO'
           )
-   if @alert_codigo == nil
-          redirect_to lista_vendas_path
-   end
+          if @alert_codigo != nil
+            render(
+              html: "<script>alert('O(s) Produto(s) de código(s) '+ #{@alert_codigo} + ' está com quantidade zerada/negativa. Por favor verifique o produto!'); window.location.href = '#{lista_vendas_path}'</script>".html_safe,
+              layout: 'default'
+            )
+          else
+            redirect_to lista_vendas_path
+          end
+     end
 end
 
 

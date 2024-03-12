@@ -71,7 +71,9 @@
     <% else %>
       <br>
     <div class="d-flex flex-row justify-content-end mt-auto" id="botao_fechar_venda">
-      <%= button_to 'Fechar venda', set_retira_quantidade_post_path(@venda_produto_id), class: 'btn btn-primary', id: 'submit_fecha_venda', method: :post %>
+      <%= button_to 'Fechar venda', set_retira_quantidade_post_path(@venda_produto_id), class: 'btn btn-primary', method: :post do %>
+        id='submit_fecha_venda'
+    <% end %>
     </div>
       <% end %>
   </div>
