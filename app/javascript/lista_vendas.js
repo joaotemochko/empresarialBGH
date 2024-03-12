@@ -1,10 +1,7 @@
 //= require jquery/dist/jquery
 //= require jquery-ujs/src/rails
 
-const get_quantidade = []
-var total_desconto_calc = document.querySelector('#total_show').innerHTML.replace('.', ',')
-var troco_total = -1
-
+var troco_total
 
 function desconto() {
     if (document.getElementById('show_desconto').innerHTML.toString() == "PIX" || document.getElementById('show_desconto').innerHTML.toString() == "Dinheiro") {
@@ -40,22 +37,28 @@ $('#form_troco').off('click').on('click', '#submit_troco', function() {
 function total_troco(){
     troco_total = ((dinheiro_informado - parseFloat(document.getElementById('total_show').innerHTML)).toFixed(2)).toString()
     document.querySelector('#show_troco').innerHTML = 'Troco: R$' + troco_total.replace('.', ',')
+
 }
 
 $('#botao_fechar_venda').off('click').on('click', '#submit_fecha_venda', function() {
-    venda_produto_id = document.getElementById('venda_produto_id').innerHTML
-    troco_total = parseFloat(troco_total).toFixed(2)
-        $.ajax({
+
+    troco_enviado = parseFloat(troco_total).toFixed(2)
+    if (troco_total == null && document.getElementById('forma_pgto').innerHTML.toString() == 'Dinheiro' || troco_total == NaN && document.getElementById('forma_pgto').innerHTML.toString() == 'Dinheiro'){
+        alert('Digite um troco válido!')
+    }else{
+    $.ajax({
+        type: 'POST',
+        url: 'set_retirada_quantidade',
+        data: {troco: troco_enviado}
+    });
+
+    $.ajax({
             type: 'POST',
-            url: 'set_retirada_quantidade',
-            data: {troco: troco_total}
+            url: 'get_desconto',
+            data: {desconto: total_desconto_calc}
         });
-            $.ajax({
-                type: 'POST',
-                url: 'get_desconto',
-                data: {desconto: total_desconto_calc, venda_produto_id: venda_produto_id}
-            });
-        })
+    }
+})
 
 
 function total_desconto(){
@@ -70,6 +73,5 @@ function total_desconto(){
 $(document).ready()
 {
     desconto();
-    total_desconto_calc;
 }
 

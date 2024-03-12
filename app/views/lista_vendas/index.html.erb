@@ -16,13 +16,12 @@
 
       <tbody>
       <tr>
-        <p id="venda_produto_id"><% @venda_produto_id %></p>
         <% @lista_venda.each do |vendas| %>
           <td><%= vendas.codigo %></td>
           <td><%= vendas.nome %></td>
           <td><%= t('valores.peso', value: '%0.3f' %vendas.peso) %></td>
           <td><%= t('valores.moeda', value: '%0.2f' %vendas.preco) %></td>
-          </tr>
+      </tr>
 
         <% end %>
         </tbody>
@@ -30,6 +29,7 @@
 
 
 
+    <% if @status[0] == 'ABERTO' %>
     <br>
     <div id="form_desconto">
       Desconto: <input type="text" id="desconto">
@@ -39,9 +39,10 @@
     <div class="d-flex flex-row justify-content-end mt-auto">
       <h3 id="show_desconto"><%= @forma_pagamento[0] %></h3>
     </div>
+    <% end %>
     <br>
     <div class="d-flex flex-row justify-content-end mt-auto">
-      <h3 id="pega_desconto">Forma de Pagamento: <%= @forma_pagamento[0] %></h3>
+      <h3 id="pega_desconto">Forma de Pagamento:</h3> <h3 id="forma_pgto"><%= @forma_pagamento[0] %></h3>
     </div>
     <br>
 
