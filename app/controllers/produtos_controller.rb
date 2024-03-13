@@ -70,11 +70,16 @@ class ProdutosController < DefaultController
   # PATCH/PUT /produtos/1 or /produtos/1.json
   def update
     @produto_subtrai = Produto.find(params[:id])
-
+    @verifica_retirada = Produto.where(:id => @produto_subtrai).pluck(:quantidade)
       if @produto.update(produto_params)
         if @@subtrai
-          @retirada = (@produto.quantidade + @produto.retirada)
-          @subtracao = ( @produto_subtrai.quantidade - @produto.quantidade )
+            @retirada = (@produto.quantidade + @produto.retirada)
+
+            if @verifica_retirada[0] < 0
+              @subtracao = ( @produto_subtrai.quantidade + (-@produto.quantidade) )
+            else
+              @subtracao = ( @produto_subtrai.quantidade - @produto.quantidade )
+            end
           Produto.where(:id => @produto_subtrai).update!(:quantidade => @subtracao, :retirada => @retirada)
           @usuario = current_user.email
           @log = Log.create!(:usuario => @usuario, :retirada => @produto.quantidade, :data_retirada => Date.today, :produto_id => @produto.id)

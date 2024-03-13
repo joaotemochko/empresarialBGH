@@ -6,10 +6,10 @@
         <table class="text-center table table-striped table-bordered table-hover" id="tabelaProdutoindexAdmin">
           <thead>
           <tr>
-            <th>Produto</th>
-            <th>Entrada</th>
-            <th>Quantidade Disponível</th>
-            <th>Retirada</th>
+            <th class="text-center">Produto</th>
+            <th class="text-center">Entrada</th>
+            <th class="text-center">Quantidade Disponível</th>
+            <th class="text-center">Retirada (Últimos 30 dias)</th>
             <th></th>
             <th></th>
           </tr>
@@ -25,7 +25,10 @@
                 <%= t('valores.peso', value: '%0.3f' %quantidade_total.sum(:quantidade)) %>
               </td>
               <td id="quantidade"><%= t('valores.peso', value: '%0.3f' %showestoque.quantidade) %></td>
-              <td id="retirada"><%= link_to t('valores.peso', value: '%0.3f' %showestoque.retirada),  logs_path(showestoque.id) %></td>
+                <% verifica_data = @logs.where('data_retirada > ? and produto_id = ?', Date.today.days_ago(30), showestoque.id) %>
+                <% soma = verifica_data.sum(:retirada) %>
+                <td id="retirada"><%= link_to t('valores.peso', value: '%0.3f' %soma),  logs_path(showestoque.id) %></td>
+
               <td id="botao_mostrar"><%= button_to "Editar", edit_produto_path(showestoque), class: 'btn btn-outline-info', method: :get %></td>
               <td id="botao_retirar"><%= button_to 'Retirar', subtrai_path(showestoque), class: 'btn btn-outline-danger', method: :get %></td>
               </tr>
@@ -70,8 +73,8 @@
       <table class="text-center table table-striped table-bordered table-hover" id="tabelaProdutoindexUsuario">
         <thead>
         <tr>
-          <th>Produto</th>
-          <th>Quantidade Disponível</th>
+          <th class="text-center">Produto</th>
+          <th class="text-center">Quantidade Disponível</th>
           <th></th>
           <th></th>
         </tr>
