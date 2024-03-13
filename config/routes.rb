@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'sat/index', to: 'sat#index'
   post 'lista_vendas/:venda_produto_id/set_retirada_quantidade', to: 'lista_vendas#set_retirada_quantidade', as: 'set_retira_quantidade_post'
   post 'lista_vendas/:venda_produto_id/get_desconto', to: 'lista_vendas#get_desconto', as: 'get_desconto'
+  post 'lista_vendas/:venda_produto_id/set_cancela', to: 'lista_vendas#set_cancela', as: 'set_cancela'
 
   resources :venda_produtos do
     post :set_venda, on: :collection

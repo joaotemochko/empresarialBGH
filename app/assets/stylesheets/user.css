@@ -26,3 +26,21 @@
     margin-top: auto;
     font-size: x-small;
 }
+.box.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.box.flex h2{
+    text-align: center;
+}
+.container-flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+.container-flex button{
+    margin-left: 10%;
+}

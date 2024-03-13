@@ -14,6 +14,13 @@ class ListaVendasController < DefaultController
     @total_rs = VendaProduto.where(:id => @venda_produto_id).pluck(:preco_total)
   end
 
+  def set_cancela
+    @venda_produto_id = params[:venda_produto_id].to_i
+    @venda_produto = VendaProduto.find(@venda_produto_id)
+    @venda_produto.update!(
+      :status => 'CANCELADO'
+    )
+  end
 
   def set_retirada_quantidade
    @venda_produto_id = params[:venda_produto_id].to_i

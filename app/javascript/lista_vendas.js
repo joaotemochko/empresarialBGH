@@ -2,11 +2,11 @@
 //= require jquery-ujs/src/rails
 
 const alert_quantidade = []
-const quantidade_float = []
-const codigo_id = []
+var quantidade_float
+var codigo_id
 
-quantidade_float.push(parseFloat(document.getElementById('quantidade').innerHTML)),
-codigo_id.push(parseInt(document.getElementById('id').innerHTML))
+quantidade_float = JSON.parse(document.getElementById('quantidade').innerHTML)
+codigo_id = JSON.parse(document.getElementById('id').innerHTML)
 
 var troco_total, troco_show
 
@@ -45,7 +45,7 @@ $('#form_troco').off('click').on('click', '#submit_troco', function() {
 
 function total_troco(){
     troco_total = dinheiro_informado - parseFloat(document.getElementById('total_show').innerHTML).toFixed(2)
-    troco_show = troco_total.toString()
+    troco_show = troco_total.toFixed(2).toString()
     document.querySelector('#show_troco').innerHTML = 'Troco: R$' + troco_show.replace('.', ',')
 
 }
@@ -101,11 +101,26 @@ $('#botao_fechar_venda').off('click').on('click', '#submit_botao_venda', functio
         }
 })
 
+$('#botao_cancelar_venda').off('click').on('click', '#submit_botao_cancela', function() {
+    venda_produto_id = parseInt(document.getElementById('venda_produto_id').innerHTML)
+    $.ajax({
+        type: 'POST',
+        url: 'set_cancela',
+        data: { venda_produto_id: venda_produto_id },
+        success: function() {
+            window.location.reload();
+        }
+    });
+})
 
-function get_quantidade (){
-    if (quantidade_float < 0){
+function eachQuantidade(item, index, arr) {
+    if (item < 0){
         alert_quantidade.push(parseFloat(document.getElementById('quantidade').innerHTML))
     }
+}
+
+function get_quantidade (){
+    quantidade_float.forEach(eachQuantidade)
 }
 
 function total_desconto(){

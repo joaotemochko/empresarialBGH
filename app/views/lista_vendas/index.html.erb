@@ -27,10 +27,17 @@
         </tbody>
     </table>
 
+
+    <% quant = [] %>
+    <% cod = [] %>
     <% @quantidade.each do |pega_quantidade| %>
-      <p hidden id="quantidade"><%= pega_quantidade.quantidade %></p>
-      <p hidden id="id"><%= pega_quantidade.codigo %></p>
+      <% quant.push(pega_quantidade.quantidade) %>
+      <% if pega_quantidade.quantidade < 0 %>
+        <% cod.push(pega_quantidade.codigo) %>
       <% end %>
+    <% end %>
+    <p hidden="hidden" id="quantidade"><%= quant %></p>
+    <p hidden="hidden" id="id"><%= cod %></p>
 
     <% if @status[0] == 'ABERTO' %>
     <br>
@@ -67,15 +74,21 @@
         <h2 id="show_troco"></h2>
       </div>
     <% end %>
-    <% if @status[0] == 'FECHADO' %>
+    <% if @status[0] == 'FECHADO' or @status[0] == 'CANCELADO' %>
     <div class="d-flex justify-content-md-start mt-auto">
       <h1>Status: <%= @status[0] %></h1>
     </div>
     <% else %>
+
       <br>
-    <div class="d-flex flex-row justify-content-end mt-auto" id="botao_fechar_venda">
+      <div class="container-flex">
+      <div id="botao_cancelar_venda">
+      <%= button_tag 'Cancelar Venda', id:'submit_botao_cancela', class: 'btn btn-danger', method: :post %>
+      </div>
+      <div id="botao_fechar_venda">
       <%= button_tag 'Fechar Venda', id:'submit_botao_venda', class: 'btn btn-primary', method: :post %>
-    </div>
+      </div>
+      </div>
       <% end %>
   </div>
 </div>
