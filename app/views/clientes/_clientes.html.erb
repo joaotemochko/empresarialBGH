@@ -1,0 +1,11 @@
+<div id="<%= dom_id cliente %>">
+  <td id="nome"><%= estoque.produto.nome %></td>
+  <td id="fornecedor"><%= estoque.fornecedor.nome %></td>
+  <td id="desc"><%= estoque.desc %></td>
+  <td id="lote"><%= estoque.lote %></td>
+  <td id="data_compra"><%= l(estoque.data_compra.to_date, format: :default) %></td>
+  <td id="validade"><%= l(estoque.validade.to_date, format: :default) %></td>
+  <td id="quantidade"><%= t('valores.peso', value: '%0.3f' %estoque.quantidade) %></td>
+  <td id="preco"><%= t('valores.moeda', value: '%0.2f' %estoque.valor) %></td>
+  <td id="status"><%= estoque.status %></td>
+</div>

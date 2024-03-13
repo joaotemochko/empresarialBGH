@@ -1,0 +1,35 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Clientes</h1>
+
+<div class="table-responsive">
+  <table class="text-center table table-striped table-bordered table-hover" id="tabelaCliente">
+    <thead>
+    <tr>
+      <th class="text-center">Nome/Razão Social</th>
+      <th class="text-center">Descrição</th>
+      <th class="text-center">Telefone</th>
+      <th class="text-center">Endereço</th>
+      <th class="text-center">CEP</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <%= render @cliente %>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <%= button_to "Novo cliente", new_estoque_path, class: 'btn btn-outline-success', method: :get %> |
+  <%= button_to "Editar", edit_estoque_path(@estoque), class: 'btn btn-outline-info', method: :get %> |
+  <%= button_to "Voltar", estoques_path, class: 'btn btn-outline-dark', method: :get %>
+</div>
+
+<br>
+
+<div class="d-flex flex-row justify-content-end mt-auto">
+  <%= button_to "Deletar este cliente (não recomendado)", @estoque, class: 'btn btn-danger', method: :delete %>
+</div>

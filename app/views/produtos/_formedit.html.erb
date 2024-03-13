@@ -18,8 +18,18 @@
     </div>
 
     <div class="col-md-4">
+      <%= form.label 'Código', style: "display: block" %>
+      <%= form.text_field :codigo, class: 'form-control' %>
+    </div>
+
+    <div class="col-md-4">
       <%= form.label 'Descrição', style: "display: block" %>
       <%= form.text_field :desc, class: 'form-control' %>
+    </div>
+
+    <div class="col-md-4">
+      <%= form.label 'Preço por KG', style: "display: block" %>
+      <%= form.text_field :preco, class: 'form-control' %>
     </div>
   <% end %>
 

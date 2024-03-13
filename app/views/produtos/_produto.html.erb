@@ -13,7 +13,11 @@
     </td>
   <% end %>
   <td id="preco">
-    <%= t('valores.moeda', value: '%0.2f' %produto.preco) %>
+    <% if produto.preco == nil %>
+      <%= t('valores.moeda', value: '%0,2f' %0) %>
+    <% else %>
+       <%= t('valores.moeda', value: '%0.2f' %produto.preco) %>
+    <% end %>
   </td>
   <td id="entrada">
     <% quantidade_total = @estoque.where(:produto_id => produto.id) %>
