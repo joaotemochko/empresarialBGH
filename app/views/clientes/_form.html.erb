@@ -22,6 +22,11 @@
   </div>
 
   <div>
+    <%= form.label 'CPF/CNPJ', style: "display: block" %>
+    <%= form.text_field :cnpj %>
+  </div>
+
+  <div>
     <%= form.label 'Telefone (Opicional)', style: "display: block" %>
     <%= form.text_field :tel %>
   </div>
@@ -36,7 +41,9 @@
     <%= form.text_field :cep %>
   </div>
 
+  <br>
+
   <div>
-    <%= form.submit 'Cadastrar Cliente', class: 'btn btn-outline-success' %>
+    <%= form.submit class: 'btn btn-outline-success' %>
   </div>
 <% end %>

@@ -10,19 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_13_185041) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_14_140816) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
   enable_extension "unaccent"
 
+  create_table "atacado_pedidos", force: :cascade do |t|
+    t.bigint "cliente_id", null: false
+    t.float "peso_total"
+    t.float "preco_total"
+    t.string "forma_pagamento", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id"], name: "index_atacado_pedidos_on_cliente_id"
+  end
+
   create_table "clientes", force: :cascade do |t|
     t.string "nome"
     t.string "desc"
-    t.bigint "cnpj"
-    t.bigint "tel"
+    t.string "cnpj", limit: 14
+    t.string "tel", limit: 11
     t.string "endereco"
-    t.bigint "cep"
+    t.string "cep", limit: 8
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -45,9 +55,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_13_185041) do
 
   create_table "fornecedors", force: :cascade do |t|
     t.string "nome"
-    t.bigint "cnpj"
+    t.string "cnpj", limit: 14
     t.string "endereco"
-    t.bigint "tel"
+    t.string "tel", limit: 11
     t.string "obs"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -108,6 +118,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_13_185041) do
     t.string "status"
   end
 
+  add_foreign_key "atacado_pedidos", "clientes"
   add_foreign_key "estoques", "fornecedors"
   add_foreign_key "estoques", "produtos"
   add_foreign_key "lista_vendas", "venda_produtos"

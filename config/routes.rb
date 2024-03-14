@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'atacado_pedidos/index'
   get 'clientes/index'
   get 'lista_vendas/:venda_produto_id/index', to: 'lista_vendas#index', as: 'lista_vendas'
   get 'sat/index', to: 'sat#index'
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
   resources :produtos
   resources :fornecedors
   resources :estoques
+  resources :atacado_pedidos
   resources :users, only: [:new, :edit, :update, :create]
 
   get '/logs/:produto_id/index', to: 'logs#index', as: 'logs'

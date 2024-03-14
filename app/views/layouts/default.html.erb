@@ -134,6 +134,29 @@
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
+    <div class="sidebar-heading">
+      Clientes e Vendas (Atacado)
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseclientes"
+         aria-expanded="true" aria-controls="collapseclientes">
+        <i class="fas fa-fw fa-user"></i>
+        <span>Clientes</span>
+      </a>
+      <div id="collapseclientes" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Acesso rápido:</h6>
+          <%= link_to 'Consultar clientes', clientes_path, class: 'collapse-item' %>
+          <%= link_to 'Cadastrar cliente', new_cliente_path, class: 'collapse-item' %>
+        </div>
+      </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
       <button class="rounded-circle border-0" id="sidebarToggle"></button>

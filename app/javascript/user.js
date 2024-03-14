@@ -17,7 +17,24 @@ var quantidadeTotal = 0;
 var total = 0;
 var codigo_produto = ''
 var peso, codigo_produto_replaced
+var numeros = []
+var cep = []
+var telefone = []
+var lista_cnpj = document.querySelectorAll("[id='cnpj']")
+var lista_cep = document.querySelectorAll("[id='cep']")
+var lista_tel = document.querySelectorAll("[id='tel']")
 
+for(var i = 0; i < lista_cnpj.length; i++){
+    numeros.push(lista_cnpj[i].innerHTML);
+}
+
+for(var i = 0; i < lista_cep.length; i++){
+    cep.push(lista_cep[i].innerHTML);
+}
+
+for(var i = 0; i < lista_tel.length; i++){
+    telefone.push(lista_tel[i].innerHTML);
+}
 
 function vendaTotal() {
     document.querySelector('#total').innerHTML = 'TOTAL: R$' + total.toString().replace('.', ',')
@@ -78,6 +95,9 @@ $('#botao_enviar').off('click').on('click', '#enviar', function (){
 
 $(document).ready()
 {
+    cpf_e_cnpj();
+    cep_format();
+    telefone_format();
     load_quagga();
     tabela();
     vendaTotal();
@@ -172,4 +192,49 @@ function  load_quagga(){
             Quagga.start();
         });
     }
+}
+
+function eachCpf_ou_Cnpj(item, index, arr) {
+    if (arr[index].length === 14) {
+        lista_cnpj[index].innerHTML = item.toString().replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5')
+    } else if (arr[index].length === 11){
+        lista_cnpj[index].innerHTML = item.toString().replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
+    } else {
+        lista_cnpj[index].innerHTML = 'NÚMERO INVÁLIDO!'
+    }
+}
+
+function eachCep(item, index, arr) {
+    if (arr[index].length === 8) {
+        lista_cep[index].innerHTML = item.toString().replace(/(\d{5})(\d{3})/, '$1-$2')
+    } else {
+        lista_cep[index].innerHTML = 'CEP INVÁLIDO!'
+    }
+}
+
+function eachTelefone(item, index, arr) {
+    if (arr[index].length === 8) {
+        lista_tel[index].innerHTML = item.toString().replace(/(\d{4})(\d{4})/, '$1-$2')
+    } else if (arr[index].length === 9){
+        lista_tel[index].innerHTML = item.toString().replace(/(\d{5})(\d{4})/, '$1-$2')
+    } else if (arr[index].length === 10){
+        lista_tel[index].innerHTML = item.toString().replace(/(\d{2})(\d{4})(\d{4})/, '($1)$2-$3')
+    } else if (arr[index].length === 11){
+        lista_tel[index].innerHTML = item.toString().replace(/(\d{2})(\d{5})(\d{4})/, '($1)$2-$3')
+    }
+    else {
+        lista_tel[index].innerHTML = 'SEM CADASTRO/INVÁLIDO'
+    }
+}
+
+function cpf_e_cnpj(){
+    numeros.forEach(eachCpf_ou_Cnpj)
+}
+
+function cep_format(){
+    cep.forEach(eachCep)
+}
+
+function telefone_format(){
+    telefone.forEach(eachTelefone)
 }
