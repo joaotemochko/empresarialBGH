@@ -1,4 +1,5 @@
 class AtacadoPedidosController < DefaultController
+  before_action :set_cliente_options, only: [ :new, :create, :edit, :update ]
   def index
     @atacados = AtacadoPedido.all
   end
@@ -57,6 +58,7 @@ class AtacadoPedidosController < DefaultController
 
   def set_cliente_options
     @cliente_options = Cliente.all.pluck(:nome, :id)
+    @cliente = Cliente.all
   end
 
   # Use callbacks to share common setup or constraints between actions.

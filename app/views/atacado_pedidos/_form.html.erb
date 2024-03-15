@@ -1,0 +1,39 @@
+<%= form_with(model: atacado_pedido) do |form| %>
+  <% if atacado_pedido.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(atacado_pedido.errors.count, "error") %> prohibited this cliente from being saved:</h2>
+
+      <ul>
+        <% atacado_pedido.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label 'Cliente', style: "display: block" %>
+    <%= form.select("cliente_id", @cliente_options, {include_blank: 'Selecione o cliente'}) %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <%= form.label 'CPF/CNPJ: ' %>
+      <%= form.label ''%>
+    </div>
+    <div class="col-md-4">
+      <%= form.label 'Endereço' %>
+      <%= form.label '' %>
+    </div>
+    <div class="col-md-4">
+      <%= form.label 'CEP: ' %>
+      <%= form.label '' %>
+    </div>
+  </div>
+
+  <br>
+
+  <div>
+    <%= form.submit class: 'btn btn-outline-success' %>
+  </div>
+<% end %>

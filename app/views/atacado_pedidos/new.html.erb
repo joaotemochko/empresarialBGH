@@ -1,0 +1,11 @@
+<h1>Novo Pedido(ATACADO)</h1>
+
+<div class="container-fluid">
+  <%= render "form", atacado_pedido: @atacado %>
+
+  <br>
+
+  <div>
+    <%= button_to "Voltar", atacado_pedidos_path, class: 'btn btn-outline-dark', method: :get %>
+  </div>
+</div>

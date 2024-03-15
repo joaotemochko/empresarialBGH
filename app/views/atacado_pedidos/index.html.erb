@@ -1,2 +1,39 @@
-<h1>AtacadoPedidos#index</h1>
-<p>Find me in app/views/atacado_pedidos/index.html.erb</p>
+<p style="color: green"><%= notice %></p>
+
+<h1>Vendas (ATACADO)</h1>
+
+<div class="table-responsive">
+  <table class="text-center table table-striped table-bordered table-hover" id="tabelaAtacado">
+    <thead>
+    <tr>
+      <th class="text-center">N. Venda</th>
+      <th class="text-center">Nome/Razão Social</th>
+      <th class="text-center">CPF/CNPJ</th>
+      <th class="text-center">Data de Criação</th>
+      <th class="text-center">Preço Total</th>
+      <th class="text-center">Peso Total</th>
+      <th class="text-center">Forma Pagamento</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @atacados.each do |atacado| %>
+
+      <tr>
+        <%= render atacado %>
+
+        <td id="botao_editar">
+          <%= button_to "Editar", edit_atacado_pedido_path(atacado), class: 'btn btn-outline-info', method: :get%>
+        </td>
+        <td id="botao_mostrar"><%= button_to "Mostrar", atacado, class: 'btn btn-outline-info', method: :get %></td>
+      </tr>
+
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= button_to "Novo pedido", new_atacado_pedido_path, class: 'btn btn-outline-success', method: :get %>
+
+

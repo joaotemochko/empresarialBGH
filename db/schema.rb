@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_14_140816) do
     t.string "cnpj", limit: 14
     t.string "tel", limit: 11
     t.string "endereco"
-    t.string "cep", limit: 8
+    t.bigint "cep"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

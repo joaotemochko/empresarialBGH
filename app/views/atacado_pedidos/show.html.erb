@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Venda (ATACADO)</h1>
+
+<div class="container-fluid">
+  <%= render 'atacado_pedidos/show_atacado_pedido' %>
+</div>
+
+<div>
+  <%= button_to "Voltar", atacado_pedidos_path, class: 'btn btn-outline-dark', method: :get %>
+</div>

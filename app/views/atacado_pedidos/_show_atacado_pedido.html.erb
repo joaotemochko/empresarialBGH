@@ -1,0 +1,46 @@
+<div id="<%= dom_id atacado_pedido %>">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <p>N. Venda</p>
+        <p><%= atacado_pedido.id %></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p>Cliente</p>
+        <p><%= atacado_pedido.cliente.nome %></p>
+      </div>
+      <div class="col-md-3">
+        <p>CPF/CNPJ</p>
+        <p id="cnpj"><%= atacado_pedido.cliente.cnpj %></p>
+      </div>
+      <div class="col-md-3">
+        <p>Endereço</p>
+        <p><%= atacado_pedido.cliente.endereco %></p>
+      </div>
+      <div class="col-md-3">
+        <p>CEP</p>
+        <p id="cep"><%= atacado_pedido.cliente.cep %></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p>Data Pedido</p>
+        <p><%= l(atacado_pedido.created_at.to_date, format: :default) %></p>
+      </div>
+      <div class="col-md-3">
+        <p>Preço Total</p>
+        <p><%= t('valores.moeda', value: '%0.2f' %atacado_pedido.preco_total) %></p>
+      </div>
+      <div class="col-md-3">
+        <p>Peso Total</p>
+        <p><%= t('valores.peso', value: '%0.3f' %atacado_pedido.peso_total) %></p>
+      </div>
+      <div class="col-md-3">
+        <p>Forma Pagamento</p>
+        <p><%= atacado_pedido.forma_pagamento %></p>
+      </div>
+    </div>
+  </div>
+</div>

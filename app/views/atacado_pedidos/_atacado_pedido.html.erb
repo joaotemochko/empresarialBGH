@@ -1,0 +1,9 @@
+<div id="<%= dom_id atacado_pedido %>">
+  <td id="id"><%= atacado_pedido.id %></td>
+  <td id="nome"><%= atacado_pedido.cliente.nome %></td>
+  <td id="cnpj"><%= atacado_pedido.cliente.cnpj %></td>
+  <td id="data"><%= l(atacado_pedido.created_at.to_date, format: :default) %></td>
+  <td id="preco"><%= t('valores.moeda', value: '%0.2f' %atacado_pedido.preco_total) %></td>
+  <td id="peso"><%= t('valores.peso', value: '%0.3f' %atacado_pedido.peso_total) %></td>
+  <td id="forma_pagamento"><%= atacado_pedido.forma_pagamento %></td>
+</div>
