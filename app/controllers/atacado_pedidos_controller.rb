@@ -54,11 +54,35 @@ class AtacadoPedidosController < DefaultController
     end
   end
 
+  def set_venda
+    total = params[:total].to_f
+    @venda_produto = AtacadoPedido.create!(
+      :peso_total => params[:quantidade_total].to_f,
+      :forma_pagamento => params[:forma_pagamento],
+      :preco_total => total,
+      :status => 'EM ABERTO'
+    )
+
+    @codigo = []
+    @obj = {}
+    @obj = (params.require(:codigos_produtos).permit!); @obj.each {|k,v| @codigo.push(@obj[k] = v)}
+
+    @codigo.each do |key|
+      ListaVenda.create!(
+        :codigo => key[:codigo],
+        :nome => key[:nome],
+        :peso => key[:peso_unidade_total],
+        :preco => key[:preco_unidade_total],
+        :venda_produto_id => @venda_produto.id
+      )
+    end
+
+  end
+
   private
 
   def set_cliente_options
     @cliente_options = Cliente.all.pluck(:nome, :id)
-    @cliente = Cliente.all
   end
 
   # Use callbacks to share common setup or constraints between actions.

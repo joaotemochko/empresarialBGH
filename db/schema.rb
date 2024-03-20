@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_14_140816) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_19_124628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_14_140816) do
     t.string "forma_pagamento", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
+    t.string "parcelas"
     t.index ["cliente_id"], name: "index_atacado_pedidos_on_cliente_id"
   end
 
@@ -32,9 +34,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_14_140816) do
     t.string "cnpj", limit: 14
     t.string "tel", limit: 11
     t.string "endereco"
-    t.bigint "cep"
+    t.string "cep", limit: 8
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "cidade"
+    t.string "uf"
   end
 
   create_table "estoques", force: :cascade do |t|
@@ -93,6 +98,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_14_140816) do
     t.float "retirada"
     t.integer "codigo"
     t.float "preco"
+    t.boolean "preco_unidade"
   end
 
   create_table "users", force: :cascade do |t|

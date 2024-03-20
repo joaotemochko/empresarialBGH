@@ -31,6 +31,17 @@
       <%= form.label 'Preço por KG', style: "display: block" %>
       <%= form.text_field :preco, class: 'form-control' %>
     </div>
+
+    <div class="col-md-4">
+      <%= form.label 'Ativar preço por Unidade', style: "display: block" %>
+      <% if produto.preco_unidade.nil? %>
+        <%= form.radio_button :preco_unidade, 'true' %> Sim <br>
+        <%= form.radio_button :preco_unidade, 'false', checked: true %> Não
+      <% else %>
+        <%= form.radio_button :preco_unidade, 'true' %> Sim <br>
+        <%= form.radio_button :preco_unidade, 'false' %> Não
+      <% end %>
+    </div>
   <% end %>
 
   <div class="col-md-4">

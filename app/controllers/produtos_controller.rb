@@ -117,6 +117,6 @@ class ProdutosController < DefaultController
 
     # Only allow a list of trusted parameters through.
     def produto_params
-      params.require(:produto).permit(:nome, :desc, :quantidade, :codigo, :preco)
+      params.require(:produto).permit(:nome, :desc, :quantidade, :codigo, :preco, :preco_unidade)
     end
 end

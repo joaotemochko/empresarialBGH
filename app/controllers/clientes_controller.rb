@@ -1,5 +1,10 @@
 class ClientesController < DefaultController
   before_action :set_cliente, only: %i[ show edit update destroy ]
+
+  def get_cliente
+    @cliente = Cliente.where(:id => params[:selected])
+    render json: {data: @cliente}
+  end
   def index
     @cliente = Cliente.all
   end
@@ -63,6 +68,6 @@ class ClientesController < DefaultController
 
   # Only allow a list of trusted parameters through.
   def cliente_params
-    params.require(:cliente).permit(:nome, :desc, :cnpj, :tel, :endereco, :cep)
+    params.require(:cliente).permit(:nome, :desc, :cnpj, :tel, :endereco, :cep, :email, :uf, :cidade)
   end
 end

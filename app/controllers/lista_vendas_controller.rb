@@ -29,12 +29,18 @@ class ListaVendasController < DefaultController
    @lista_venda = ListaVenda.where(:venda_produto_id => @venda_produto_id)
    @lista_venda.each do |lista|
     @procura_codigo = Produto.find_by_codigo(lista.codigo)
-    peso_retira = @lista_venda.where(:codigo => lista.codigo).pluck(:peso)
-    retira_quantidade = (@procura_codigo.quantidade - peso_retira[0].to_f)
-    @procura_codigo.update!(
-    :quantidade => retira_quantidade
-    )
-    end
+    @peso_retira = @lista_venda.where(:codigo => lista.codigo)
+   end
+
+   @peso_retira.each do |retira|
+     retira_quantidade = (@procura_codigo.quantidade - retira.peso)
+     puts @procura_codigo.quantidade
+     puts retira_quantidade
+     @procura_codigo.update!(
+       :quantidade => retira_quantidade
+     )
+   end
+
     @venda_produto.update!(
       :status => 'FECHADO'
     )

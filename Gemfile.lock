@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/mmotherwell/best_in_place
+  revision: 88eb3052623a9a6cd346864d2aca05021c2f80d0
+  specs:
+    best_in_place (3.1.1)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -275,6 +283,7 @@ PLATFORMS
 
 DEPENDENCIES
   ajax-datatables-rails (~> 1.4)
+  best_in_place!
   bootsnap
   capybara
   debug

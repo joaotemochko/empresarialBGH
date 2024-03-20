@@ -77,3 +77,5 @@ gem "ajax-datatables-rails", "~> 1.4"
 gem "jquery-datatables", "~> 1.10"
 
 gem "ffi", "~> 1.16"
+
+gem "best_in_place", git: "https://github.com/mmotherwell/best_in_place"

@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   get 'clientes/index'
   get 'lista_vendas/:venda_produto_id/index', to: 'lista_vendas#index', as: 'lista_vendas'
   get 'sat/index', to: 'sat#index'
+  get 'clientes/get_cliente', to: 'clientes#get_cliente'
+  get 'produtos/get_dataProduto', to: 'produtos#get_dataProduto'
+
   post 'lista_vendas/:venda_produto_id/set_retirada_quantidade', to: 'lista_vendas#set_retirada_quantidade', as: 'set_retira_quantidade_post'
   post 'lista_vendas/:venda_produto_id/get_desconto', to: 'lista_vendas#get_desconto', as: 'get_desconto'
   post 'lista_vendas/:venda_produto_id/set_cancela', to: 'lista_vendas#set_cancela', as: 'set_cancela'
@@ -17,7 +20,9 @@ Rails.application.routes.draw do
   resources :produtos
   resources :fornecedors
   resources :estoques
-  resources :atacado_pedidos
+  resources :atacado_pedidos do
+    post :set_venda, on: :collection
+  end
   resources :users, only: [:new, :edit, :update, :create]
 
   get '/logs/:produto_id/index', to: 'logs#index', as: 'logs'

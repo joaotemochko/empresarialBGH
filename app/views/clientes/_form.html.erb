@@ -41,6 +41,25 @@
     <%= form.text_field :cep %>
   </div>
 
+  <div>
+    <%= form.label 'Email', style: "display: block" %>
+    <%= form.email_field :email %>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= form.label 'Estado: ' %>
+      <%= form.select 'uf', '', {include_blank: 'Selecione...', display: 'disabled'}, id: 'selectEstado' %>
+    </div>
+
+    <div class="col-md-6">
+      <%= form.label 'Cidade: ' %>
+      <%= form.select 'cidade', '', {}, id: 'selectCidade' %>
+    </div>
+  </div>
+
   <br>
 
   <div>

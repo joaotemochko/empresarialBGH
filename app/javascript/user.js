@@ -1,5 +1,6 @@
 // Adicionando requisitos ao JS
 //= require jquery/dist/jquery
+//= require best_in_place
 //= require jquery-ujs/src/rails
 //= require bootstrap/dist/js/bootstrap.bundle
 //= require jquery.easing/jquery.easing
@@ -75,12 +76,19 @@ $('#resultado').off('click').on('click', '#deletar', function () {
 
 $('#entradaManual').off('click').on('click', '#submit', function (){
     codigo_produto = document.getElementById('fcode').value.toString();
-    codigo_produto_replaced = codigo_produto.replace(/(\d{2})(\d{5})/, '$1')
-    peso = codigo_produto.replace(/(\d{2})(\d{2})(\d{3})/, '$2.$3')
-    tabela();
-    document.getElementById('fcode').value = null;
-    $(document).on('turbo:load', load_quagga(), vendaTotal());
-
+    if (codigo_produto.length === 4){
+        codigo_produto_replaced = codigo_produto.replace(/(\d{2})(\d{2})/, '$1')
+        peso = codigo_produto.replace(/(\d{2})(\d{2})/, '$2')
+        tabela();
+        document.getElementById('fcode').value = null;
+        $(document).on(load_quagga(), vendaTotal());
+    }else {
+        codigo_produto_replaced = codigo_produto.replace(/(\d{2})(\d{5})/, '$1')
+        peso = codigo_produto.replace(/(\d{2})(\d{2})(\d{3})/, '$2.$3')
+        tabela();
+        document.getElementById('fcode').value = null;
+        $(document).on(load_quagga(), vendaTotal());
+    }
 });
 
 $('#botao_enviar').off('click').on('click', '#enviar', function (){
@@ -111,7 +119,7 @@ function tabela() {
         success: function (response) {
             peso = peso.replace(/(^0+)(\d{1})/, "$2")
             const total_preco_kg = (response.data[0].preco * parseFloat(peso)).toFixed(2)
-            totalVenda.push({codigo: response.data[0].codigo, nome: response.data[0].nome, peso_unidade_total: peso, preco_unidade_total: total_preco_kg});
+            totalVenda.push({codigo: response.data[0].codigo, nome: response.data[0].nome, peso_unidade_total: peso, preco_unidade_total: total_preco_kg, unidade: response.data[0].preco_unidade});
             total = totalVenda.reduce(function (acc, obj) { return acc + parseFloat(obj.preco_unidade_total); }, 0).toFixed(2);
             quantidadeTotal = totalVenda.reduce(function (acc, obj) { return acc + parseFloat(obj.peso_unidade_total); }, 0).toFixed(3);
             console.log(total)
@@ -126,8 +134,13 @@ function tabela() {
                         {data: 'codigo'},
                         {data: 'nome'},
                         {data: 'peso_unidade_total', render: function(data, row) {
-                                return data.replace('.', ',') + "Kg";
-
+                                for ( ; i < totalVenda.length; i++) {
+                                    if (totalVenda[i].unidade === false) {
+                                        return data.replace('.', ',') + "/Kg";
+                                    } else {
+                                        return data.replace(/(\d)/, '$1/Un')
+                                    }
+                                }
                             }
                         },
                         {data: 'preco_unidade_total', render: function(data, row) {
